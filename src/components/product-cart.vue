@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div :class="['card__pick' , props.product.color]">
+    <div :class="['card__pick']" :style="{ backgroundColor: props.product.color }">
       <div class="card__pick__img">
         <img :src="props.product.image" :alt="product.name" class="card__pick__img__product" />
         <div v-if="product.save" :class="['card__pick__img__save', props.product.colorSave]">
@@ -33,10 +33,10 @@
         <div class="card__pick__descr__price">${{ props.product.price }}</div>
       </div>
     </div>
-     
-    <mainButton @click="addToCart" title="Buy Now"  :type="ButtonType.DEFAULT"/> 
+
+    <mainButton @click="addToCart" title="Buy Now"  :type="ButtonType.DEFAULT" class="button_add"/>
     <modalTemplate v-if="state.isShowModal" @close="closeModal"  >
-        hello
+        Add to cart
     <template v-if="false" #footer>123</template>
     </modalTemplate>
   </div>
@@ -60,6 +60,8 @@ const state = reactive<IState>({
   isShowModal:false
 })
 
+
+
 function addToCart(){
 state.isShowModal = true
 console.log('addToCart',state.isShowModal)
@@ -71,4 +73,107 @@ console.log('closeModal',state.isShowModal)
 }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@use '@/scss/colors' as *;
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      &__pick {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 361px;
+        height: 438px;
+        border-radius: 25px;
+
+        // background-color: props.product.color;
+
+        &__img {
+          position: relative;
+
+          &__product {
+            width: 196px;
+            height: 196px;
+            margin-top: 30px;
+          }
+
+          &__save {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 21.94px;
+            text-align: center;
+            color: rgba(255, 255, 255, 1);
+            // background-color: props.product.colorSave;
+            width: 100px;
+            height: 100px;
+            padding-top: 25px;
+            border-radius: 50px;
+            position: absolute;
+            top: 20px;
+            left: 160px;
+          }
+        }
+
+        &__descr {
+          display: flex;
+          flex-direction: column;
+          width: 319px;
+          height: 164px;
+          border-radius: 25px;
+          background: rgba(255, 255, 255, 1);
+          padding: 31px 76px 30px 52px;
+
+          &__name {
+            font-size: 21px;
+            font-weight: 500;
+            line-height: 35px;
+            text-align: left;
+            color: rgba(43, 38, 38, 1);
+          }
+
+          &__reviews {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 5px;
+
+            &__svg {
+              display: flex;
+            }
+
+            &__text {
+              font-size: 11px;
+              font-weight: 500;
+              line-height: 35px;
+              text-align: left;
+              color: rgba(136, 136, 136, 1);
+            }
+          }
+
+          &__price {
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 25.6px;
+            text-align: left;
+            color: rgba(43, 38, 38, 1);
+          }
+        }
+      }
+    }
+    .button_add {
+       width: 361px;
+       height: 70px;
+       border-radius: 10px;
+       background: $primary-color;
+       font-size: 21px;
+       font-weight: 600;
+       line-height: 25.6px;
+       text-align: center;
+       color: rgba(255, 255, 255, 1);
+       margin-top: 29px;
+       border-color: rgba(0, 0, 0, 0);
+    }
+</style>
+
+

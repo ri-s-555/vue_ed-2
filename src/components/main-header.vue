@@ -190,8 +190,8 @@ const state = reactive<IState>({
 </script>
 
 <style lang="scss">
-@use '../scss/colors' as *;
-@use '../scss/breacpoints' as mixins;
+@use '@/scss/colors' as *;
+@use '@/scss/breacpoints' as mixins;
 
 .header {
   display: flex;
@@ -396,7 +396,7 @@ const state = reactive<IState>({
 @include mixins.isTablet() {
   header {
     span {
-      color: $purpure-color;
+      color: $card-purple;
     }
   }
 }
@@ -404,7 +404,7 @@ const state = reactive<IState>({
 @media (min-width: 720px) and (max-width: 1240px) {
   .menu {
     ul {
-      background: $blue-3-color;
+      background: $card-blue-3;
     }
   }
 }

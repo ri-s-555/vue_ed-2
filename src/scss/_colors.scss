@@ -1,3 +1,5 @@
+
+
 // Основные цвета
 $primary-color: rgb(56, 209, 143);
 $primary-color-active: rgb(0, 201, 114);
@@ -7,23 +9,17 @@ $black: rgb(0, 0, 0);
 
 :root {
   --primary-color: #{$primary-color};
+  // --card-mint: #{$card-mint};
 }
 
-// Цветовая палитра
-$mint-color: rgb(221, 251, 235);
-$blue-color: rgb(77, 120, 229);
-$purpure-color: rgb(176, 103, 225);
-$green-color: rgb(89, 217, 108);
-$blue-2-color: rgb(79, 139, 191);
-$blue-3-color: rgb(31, 37, 218);
-
 // Цвета для карточек (components/_color_card.scss)
-$card-mint: rgb(236, 254, 244);
-$card-blue: rgb(201, 242, 255);
-$card-purple: rgb(229, 213, 255);
+$card-mint: rgb(221, 251, 235);
+$card-blue: rgb(77, 120, 229);
+$card-purple: rgb(176, 103, 225);
 $card-blue-3: rgb(224, 239, 255);
 $card-blue-4: rgb(232, 249, 255);
 $card-blue-5: rgb(211, 251, 251);
+$card-color_green: $primary-color;
 
 // Цвета для кнопок (components/_button.scss)
 $button-bg: $primary-color;
@@ -61,3 +57,30 @@ $footer-text: rgb(17, 17, 17);
 $footer-border: rgba(0, 0, 0, 0.23);
 
 
+.card-mint {
+  background-color: $card-mint;
+}
+
+.card-blue {
+  background-color: $card-blue;
+}
+
+.card-purple {
+  background-color: $card-purple;
+}
+
+.card-blue-3 {
+  background-color: $card-blue-3;
+}
+
+.card-blue-4 {
+  background-color: $card-blue-4;
+}
+
+.card-blue-5 {
+  background-color: $card-blue-5;
+}
+
+.card-color_green {
+  background-color: $card-color_green;
+}

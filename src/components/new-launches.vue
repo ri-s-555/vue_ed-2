@@ -1,4 +1,3 @@
-<!-- src/components/NewLaunches.vue -->
 <template>
   <div class="container new-launches">
     <div class="new-launches__sticker">
@@ -64,27 +63,34 @@ const product = {
   price: '45.99',
 }
 
-// Данные изображений
 const images = [
   { src: './img/New Launches_1.png', alt: 'new-launches_1' },
   { src: './img/New Launches_2.png', alt: 'new-launches_2' },
 ]
 
-// Данные цветов
 const colors = [{ fill: '#111111', stroke: '#FF0000' }, { fill: '#FFF500' }, { fill: '#4484FF' }]
 
-// Реактивные состояния
+// hеактивные состояния
 const showFullDescription = ref(false)
 const selectedColor = ref(0)
 const currentImageIndex = ref(0)
 
-// Методы
 function selectColor(index: number) {
   selectedColor.value = index
 }
 
-function addToCart() {
-  alert(`Added ${product.title} in ${colors[selectedColor.value].fill} color to cart`)
+// function addToCart() {
+//   alert(`Added ${product.title} in ${colors[selectedColor.value].fill} color to cart`)
+// }
+
+function addToCart(){
+state.isShowModal = true
+console.log('addToCart',state.isShowModal)
+}
+function closeModal(){
+  state.isShowModal = false
+console.log('closeModal',state.isShowModal)
+
 }
 
 function exploreMore() {
@@ -93,7 +99,7 @@ function exploreMore() {
 </script>
 
 <style lang="scss">
-@use '../scss/colors' as *;
+@use '@/scss/colors' as *;
 
 .new-launches {
   background: rgba(132, 94, 194, 1);

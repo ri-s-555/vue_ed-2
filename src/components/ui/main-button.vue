@@ -1,9 +1,10 @@
 <template>
-    <button @click="click" :class="{
+    <button @click="click" :class="[{
         'round-button':props.type === ButtonType.ROUND,
         'default-button':props.type === ButtonType.DEFAULT
-
-    }">
+    },
+    props.class
+  ]">
     <span v-if="leftIcon">...</span>
     {{ props.title }}</button>
 
@@ -17,7 +18,8 @@ interface IEmit {
 interface IProps{
     type:ButtonType,
     title:string,
-    leftIcon:string
+    leftIcon?:string
+    class?:string
 }
 const emit = defineEmits<IEmit>()
 const props = withDefaults(defineProps<IProps>(),{
@@ -29,5 +31,15 @@ function click(){
 }
 </script>
 <style>
+  .round-button .default-button {
+       width: 361px;
+       height: 70px;
+       border-radius: 10px;
+       font-size: 21px;
+       font-weight: 600;
+       line-height: 25.6px;
+       text-align: center;
+       border-color: rgba(0, 0, 0, 0);}
+
 
 </style>

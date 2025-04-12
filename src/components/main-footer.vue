@@ -114,8 +114,8 @@
 <script lang="ts" setup></script>
 
 <style lang="scss">
-@use '../scss/colors' as *;
-@use '../scss/breacpoints' as mixins;
+@use '@/scss/colors' as *;
+@use '@/scss/breacpoints' as mixins;
 
 .footer {
   display: flex;

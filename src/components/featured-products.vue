@@ -52,9 +52,20 @@ const images = ref([
   { src: '../../public/img/Featured_Products_3.png', alt: 'featured-products_3' },
 ])
 
-function addToCart() {
-  alert(`Added ${product.value.title} to cart`)
+// function addToCart() {
+//   alert(`Added ${product.value.title} to cart`)
+// }
+
+function addToCart(){
+state.isShowModal = true
+console.log('addToCart',state.isShowModal)
 }
+function closeModal(){
+  state.isShowModal = false
+console.log('closeModal',state.isShowModal)
+
+}
+
 
 function viewMore() {
   alert('Viewing more products...')
@@ -62,7 +73,7 @@ function viewMore() {
 </script>
 
 <style lang="scss">
-@use '../scss/colors' as *;
+@use '@/scss/colors' as *;
 
 .featured-products {
   background: rgba(132, 94, 194, 1);
