@@ -1,0 +1,21 @@
+@use './colors';
+
+// @use './sellers';
+// @use './trending_earphones';
+// @use './new_launches';
+// @use './footer';
+// @use './components/color_card';
+@use './components/button';
+// @use './components/menu';
+@use './components/modal';
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+.container {
+  width: 1440px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}

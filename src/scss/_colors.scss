@@ -1,0 +1,63 @@
+// Основные цвета
+$primary-color: rgb(56, 209, 143);
+$primary-color-active: rgb(0, 201, 114);
+$second-color: rgb(161, 127, 215);
+$white: rgb(255, 255, 255);
+$black: rgb(0, 0, 0);
+
+:root {
+  --primary-color: #{$primary-color};
+}
+
+// Цветовая палитра
+$mint-color: rgb(221, 251, 235);
+$blue-color: rgb(77, 120, 229);
+$purpure-color: rgb(176, 103, 225);
+$green-color: rgb(89, 217, 108);
+$blue-2-color: rgb(79, 139, 191);
+$blue-3-color: rgb(31, 37, 218);
+
+// Цвета для карточек (components/_color_card.scss)
+$card-mint: rgb(236, 254, 244);
+$card-blue: rgb(201, 242, 255);
+$card-purple: rgb(229, 213, 255);
+$card-blue-3: rgb(224, 239, 255);
+$card-blue-4: rgb(232, 249, 255);
+$card-blue-5: rgb(211, 251, 251);
+
+// Цвета для кнопок (components/_button.scss)
+$button-bg: $primary-color;
+$button-active: $primary-color-active;
+$button-active-dark: rgb(81, 24, 50);
+$button-shadow: rgba(132, 94, 194, 0.15);
+$button-shadow-active: rgba(0, 0, 0, 0.2);
+
+// Цвета для текста
+$text-dark: rgb(43, 38, 38);
+$text-gray: rgb(136, 136, 136);
+$text-light: rgb(255, 255, 255);
+
+// Цвета для фона
+$bg-purple: rgb(132, 94, 194);
+$bg-light: rgba(213, 213, 226, 0.09); //поиск
+$bg-transparent: rgba(238, 238, 238, 0);
+
+// Цвета для границ
+$border-transparent: rgba(0, 0, 0, 0);
+$border-light: rgba(255, 255, 255, 0);
+$border-gray: rgba(204, 204, 204, 0.269);
+
+// Цвета для теней
+$shadow-light: rgba(0, 0, 0, 0.1);
+$shadow-medium: rgba(0, 0, 0, 0.2);
+$shadow-purple: rgba(132, 94, 194, 0.15);
+
+// Цвета для модальных окон (components/_modal.scss)
+$modal-overlay: rgba(0, 0, 0, 0.5);
+$modal-bg: rgba(55, 132, 195, 0.269);
+
+// Цвета для футера (_footer.scss)
+$footer-text: rgb(17, 17, 17);
+$footer-border: rgba(0, 0, 0, 0.23);
+
+

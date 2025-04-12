@@ -1,0 +1,45 @@
+@use "../colors" as *;
+.sellers-menu ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+  gap: 20px;
+}
+
+.trending-earphones__menu ul {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+  gap: 20px;
+
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 31.69px;
+}
+.menu__tab_button {
+  width: 177px;
+  height: 91px;
+
+  border-radius: 50%;
+  background: rgb(255, 255, 255);
+
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+
+  border-color: transparent;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 31.69px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    box-shadow: 0px 25px 50px 0px rgba(132, 94, 194, 0.288);
+    transform: translateY(-2px);
+  }
+}
+
+.menu__tab_button_active {
+  border-color: transparent;
+  background: $primary-color;
+  color: rgba(255, 255, 255, 1);
+}
