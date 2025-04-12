@@ -67,7 +67,8 @@ function click() {
 
 .outline-button {
   box-shadow: 0px 25px 50px 0px rgba(132, 94, 194, 0.15);
-  color: rgba(255, 255, 255, 1);
+  // color: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
 
   &:hover {
     background: rgba(41, 18, 79, 0.15);

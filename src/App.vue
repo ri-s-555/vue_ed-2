@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import mainHeader from './components/main-header.vue'
-// import featuredProducts from './components/featured-products.vue'
-// import sellersProd from './components/sellers-prod.vue'
-// import trendingEarphones from './components/trending-earphones.vue'
-// import newLaunches from './components/new-launches.vue'
+import featuredProducts from './components/featured-products.vue'
+import sellersProd from './components/sellers-prod.vue'
+import trendingEarphones from './components/trending-earphones.vue'
+import newLaunches from './components/new-launches.vue'
 import mainFooter from './components/main-footer.vue'
 import cartPage from './components/cart-page.vue'
 </script>
@@ -11,10 +11,10 @@ import cartPage from './components/cart-page.vue'
 <template>
   <div class="style_ad">HelloWorld</div>
   <mainHeader />
-  <!-- <featuredProducts />
+  <featuredProducts />
   <sellersProd />
   <trendingEarphones />
-  <newLaunches /> -->
+  <newLaunches />
   <cartPage />
   <mainFooter />
 </template>

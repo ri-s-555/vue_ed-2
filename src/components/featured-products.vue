@@ -25,8 +25,8 @@
         </p>
       </div>
       <div class="featured-products-descr_button">
-        <button class="button-add-to-card" @click="addToCart">Add to cart</button>
-        <button class="button-more" @click="viewMore">View more</button>
+        <mainButton  title="Add to cart"/>
+        <mainButton  title="View more" :type="ButtonType.OUTLINE"/>
       </div>
     </div>
   </div>
@@ -34,6 +34,8 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import mainButton from '@/components/ui/main-button.vue';
+import { ButtonType } from '@/components/ui/ui-types';
 
 const product = ref({
   title: 'Apple wireless Airpod',
@@ -56,20 +58,20 @@ const images = ref([
 //   alert(`Added ${product.value.title} to cart`)
 // }
 
-function addToCart(){
-state.isShowModal = true
-console.log('addToCart',state.isShowModal)
-}
-function closeModal(){
-  state.isShowModal = false
-console.log('closeModal',state.isShowModal)
+// function addToCart(){
+// state.isShowModal = true
+// console.log('addToCart',state.isShowModal)
+// }
+// function closeModal(){
+//   state.isShowModal = false
+// console.log('closeModal',state.isShowModal)
 
-}
+// }
 
 
-function viewMore() {
-  alert('Viewing more products...')
-}
+// function viewMore() {
+//   alert('Viewing more products...')
+// }
 </script>
 
 <style lang="scss">

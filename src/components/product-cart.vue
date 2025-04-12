@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div :class="['card__pick']" :style="{ backgroundColor: props.product.color }">
+    <div :class="['card__pick']" props.product.color>
       <div class="card__pick__img">
         <img :src="props.product.image" :alt="product.name" class="card__pick__img__product" />
         <div v-if="product.save" :class="['card__pick__img__save', props.product.colorSave]">
@@ -85,8 +85,8 @@ console.log('closeModal',state.isShowModal)
         width: 361px;
         height: 438px;
         border-radius: 25px;
+        // background-color: v-bind(props.product.color) //
 
-        // background-color: props.product.color;
 
         &__img {
           position: relative;
@@ -103,7 +103,7 @@ console.log('closeModal',state.isShowModal)
             line-height: 21.94px;
             text-align: center;
             color: rgba(255, 255, 255, 1);
-            // background-color: props.product.colorSave;
+
             width: 100px;
             height: 100px;
             padding-top: 25px;
