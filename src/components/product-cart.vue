@@ -86,7 +86,6 @@ console.log('closeModal',state.isShowModal)
         height: 438px;
         border-radius: 25px;
 
-        // background-color: props.product.color;
 
         &__img {
           position: relative;
@@ -103,7 +102,6 @@ console.log('closeModal',state.isShowModal)
             line-height: 21.94px;
             text-align: center;
             color: rgba(255, 255, 255, 1);
-            // background-color: props.product.colorSave;
             width: 100px;
             height: 100px;
             padding-top: 25px;

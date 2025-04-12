@@ -1,6 +1,6 @@
-import { type IProductInPage } from '@/types/product-In-page'
+import { type IProduct } from '@/types/Product'
 
-export const CARTS_IN_PAGE: IProductInPage[] = [
+export const CARTS_IN_PAGE: IProduct[] = [
   {
     name: "Проводные наушники",
     review: 833324,
