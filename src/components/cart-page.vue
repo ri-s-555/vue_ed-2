@@ -23,8 +23,8 @@
             </div>
           </div>
           <div class="page-product__wrapper__descr-product__button">
-            <button class="button_add" @click="addToCart">Add to cart</button>
-            <button class="button_more" @click="viewMore">View more</button>
+            <mainButton @click="addToCart" title="Add to cart"/>
+            <mainButton @click="viewMore" title="View more" :type="ButtonType.OUTLINE"/>
           </div>
         </div>
       </div>
@@ -36,6 +36,8 @@
 import { ref } from 'vue';
 import { type IProduct_in_page } from '@/types/Product_in_page';
 import { CARTS_IN_PAGE } from '@/mock/data/mock-products_in_page';
+import mainButton from '@/components/ui/main-button.vue';
+import { ButtonType } from '@/components/ui/ui-types';
 
 const productInPage = ref<IProduct_in_page>(CARTS_IN_PAGE[0]);
 
@@ -104,7 +106,7 @@ function viewMore() {
       &__price {
         display: flex;
         gap: 20px;
-        margin-bottom: 24px;
+        // margin-bottom: 24px;
 
         &__header {
           font-size: 31px;
@@ -126,7 +128,7 @@ function viewMore() {
         font-weight: 600;
         line-height: 53.64px;
         color: rgba(255, 255, 255, 1);
-        margin-bottom: 10px;
+        // margin-bottom: 10px;
       }
 
       &__description {
@@ -134,7 +136,7 @@ function viewMore() {
         font-weight: 500;
         line-height: 35px;
         color: rgba(255, 255, 255, 1);
-        margin-bottom: 35px;
+        // margin-bottom: 35px;
       }
 
       &__brand,
@@ -154,30 +156,6 @@ function viewMore() {
 
     }
 
-    .button_add {
-       width: 361px;
-       height: 70px;
-       border-radius: 10px;
-       background: $primary-color;
-       font-size: 21px;
-       font-weight: 600;
-       line-height: 25.6px;
-       text-align: center;
-       color: rgba(255, 255, 255, 1);
-       border-color: rgba(0, 0, 0, 0);
-    }
-    .button_more {
-       width: 361px;
-       height: 70px;
-       border-radius: 10px;
-       background: rgba(255, 255, 255, 0);
-       font-size: 21px;
-       font-weight: 600;
-       line-height: 25.6px;
-       text-align: center;
-       color: rgba(255, 255, 255, 1);
-       border-color: rgba(0, 0, 0, 0);
-    }
   }
   }
 }

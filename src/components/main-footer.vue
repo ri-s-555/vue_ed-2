@@ -1,5 +1,6 @@
 <template>
-  <div class="footer__start">
+  <div class="footer container">
+    <div class="footer__start">
     <h1 class="footer__start__text">Ready to get started?</h1>
     <button class="footer__start__button">Get started</button>
   </div>
@@ -109,6 +110,8 @@
       </svg>
     </div>
   </div>
+  </div>
+
 </template>
 
 <script lang="ts" setup></script>

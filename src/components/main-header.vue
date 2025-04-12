@@ -30,8 +30,10 @@
           </svg>
         </button>
       </div>
+      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND"/>
 
-      <button class="items-added-button">
+      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND" />
+      <!-- <button class="items-added-button">
         <div>
           <svg
             width="24"
@@ -49,9 +51,9 @@
           </svg>
         </div>
         <div class="items-added-button-text">0 Items Added</div>
-      </button>
+      </button> -->
 
-      <button class="login-button">
+      <!-- <button class="login-button">
         <div class="login-button-img">
           <svg
             width="24"
@@ -75,7 +77,7 @@
           </svg>
         </div>
         <div class="login-button-text">Login or Sign Up</div>
-      </button>
+      </button> -->
     </div>
   </div>
   <nav class="container menu">
@@ -92,7 +94,7 @@
       <p class="latest-product__descr_text">
         Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a product
       </p>
-      <button class="button-add-to-card">Buy Now</button>
+      <mainButton title="Buy Now" />
       <div class="latest-product__descr_reviews">
         <div class="latest-product__descr_reviews__img">
           <img
@@ -179,6 +181,8 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
+import mainButton from '@/components/ui/main-button.vue'
+import { ButtonType } from '@/components/ui/ui-types';
 
 interface IState {
   inputValue: string

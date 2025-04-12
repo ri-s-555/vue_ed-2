@@ -34,7 +34,7 @@
       </div>
     </div>
 
-    <mainButton @click="addToCart" title="Buy Now"  :type="ButtonType.DEFAULT" class="button_add"/>
+    <mainButton @click="addToCart" title="Buy Now"/>
     <modalTemplate v-if="state.isShowModal" @close="closeModal"  >
         Add to cart
     <template v-if="false" #footer>123</template>
@@ -46,7 +46,6 @@
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue';
 import mainButton from '@/components/ui/main-button.vue';
-import {ButtonType} from '@/components/ui/ui-types'
 import { reactive } from 'vue';
 
 interface IState {
