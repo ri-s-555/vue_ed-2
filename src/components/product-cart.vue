@@ -35,7 +35,7 @@
     </div>
 
     <mainButton @click="addToCart" title="Buy Now"/>
-    <modalTemplate v-if="state.isShowModal" @close="closeModal"  >
+    <modalTemplate v-if="state.isShowModal" @close="closeModal">
         Add to cart
     <template v-if="false" #footer>123</template>
     </modalTemplate>
