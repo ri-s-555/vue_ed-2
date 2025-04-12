@@ -7,5 +7,6 @@ export interface IProduct {
   save: number
   rating: number
   image: string
+
 }
 
