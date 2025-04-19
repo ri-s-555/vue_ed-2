@@ -159,19 +159,19 @@ console.log('closeModal',state.isShowModal)
         }
       }
     }
-    .button_add {
-       width: 361px;
-       height: 70px;
-       border-radius: 10px;
-       background: $primary-color;
-       font-size: 21px;
-       font-weight: 600;
-       line-height: 25.6px;
-       text-align: center;
-       color: rgba(255, 255, 255, 1);
-       margin-top: 29px;
-       border-color: rgba(0, 0, 0, 0);
-    }
+    // .button_add {
+    //    width: 361px;
+    //    height: 70px;
+    //    border-radius: 10px;
+    //    background: $primary-color;
+    //    font-size: 21px;
+    //    font-weight: 600;
+    //    line-height: 25.6px;
+    //    text-align: center;
+    //    color: rgba(255, 255, 255, 1);
+    //    margin-top: 29px;
+    //    border-color: rgba(0, 0, 0, 0);
+    // }
 </style>
 
 
