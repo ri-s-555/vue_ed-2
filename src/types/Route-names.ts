@@ -3,6 +3,7 @@ export enum RouteNames {
   Card = 'Card',
   Login = 'Login',
   Error = 'Error',
+  Cart = 'Cart'
 
 }
 

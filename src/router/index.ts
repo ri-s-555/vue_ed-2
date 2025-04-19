@@ -3,6 +3,7 @@ import mainPage from '@/components/pages/main-page.vue'
 import cardPage from '@/components/pages/card-page.vue'
 import errorPage from '@/components/pages/error-page.vue'
 import loginPage from '@/components/pages/login-page.vue'
+import cartPage from '@/components/pages/cart-page.vue'
 
 import { RouteNames } from '@/types/Route-names'
 
@@ -24,6 +25,15 @@ const router = createRouter({
       meta: {
         title: 'Card',
         needAuth: true,
+      },
+    },
+    {
+      path: '/cart',
+      component: cartPage,
+      name: RouteNames.Cart,
+      meta: {
+        title: 'Cart',
+        withOutHeader: true,
       },
     },
     {
