@@ -1,3 +1,5 @@
+import { CategoryProducts } from '@/types/category'
+
 export interface IProduct {
   id: number
   color?: string
@@ -13,5 +15,6 @@ export interface IProduct {
   model?: string,
   deliveryAvailable?: boolean,
   description?: string
+  category?: CategoryProducts[]
 }
 

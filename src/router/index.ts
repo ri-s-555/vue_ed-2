@@ -4,14 +4,15 @@ import cardPage from '@/components/pages/card-page.vue'
 import errorPage from '@/components/pages/error-page.vue'
 import loginPage from '@/components/pages/login-page.vue'
 import cartPage from '@/components/pages/cart-page.vue'
-
-import { RouteNames } from '@/types/Route-names'
+import categoryPage from '@/components/pages/category-page.vue'
+import categoryListPage from '@/components/pages/category-list-page.vue'
+import { RouteNames,RoutePaths } from '@/types/Route-names'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
+      path: RoutePaths.Main,
       component: mainPage,
       name: RouteNames.Main,
       meta: {
@@ -19,7 +20,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/card/:id',
+      path: RoutePaths.Card,
       component: cardPage,
       name: RouteNames.Card,
       meta: {
@@ -28,7 +29,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/cart',
+      path: RoutePaths.Cart,
       component: cartPage,
       name: RouteNames.Cart,
       meta: {
@@ -37,7 +38,23 @@ const router = createRouter({
       },
     },
     {
-      path: '/login',
+      path: RoutePaths.CategoryList,
+      component: categoryListPage,
+      name: RouteNames.CategoryList,
+      meta: {
+        title: 'Category List',
+      },
+    },
+    {
+      path: RoutePaths.Category,
+      component: categoryPage,
+      name: RouteNames.Category,
+      meta: {
+        title: 'Category',
+      },
+    },
+    {
+      path: RoutePaths.Login,
       component: loginPage,
       name: RouteNames.Login,
       meta: {
@@ -46,7 +63,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/:pathMatch(.*)*',
+      path: RoutePaths.Error,
       component: errorPage,
       name: RouteNames.Error,
       meta: {

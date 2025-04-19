@@ -46,10 +46,10 @@
 
 <script lang="ts" setup>
 
-import { ref } from 'vue';
-import { TOP_PICKS, WATCHES, EARBUDS, WIRELESS, WIRED, CARTS_IN_PAGE } from '@/mock/data/mock-products';
-import { type IProduct } from '@/types/Product';
-import mainButton from '@/components/ui/main-button.vue'
+// import { ref } from 'vue';
+// import { TOP_PICKS, WATCHES, EARBUDS, WIRELESS, WIRED, CARTS_IN_PAGE } from '@/mock/data/mock-products';
+// import { type IProduct } from '@/types/product';
+// import mainButton from '@/components/ui/main-button.vue'
 
 // const cartItems = ref<IProduct[]>([...TOP_PICKS, ...WATCHES, ...EARBUDS, ...WIRELESS, ...WIRED, ...CARTS_IN_PAGE]);
 

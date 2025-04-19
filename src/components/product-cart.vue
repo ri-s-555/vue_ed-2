@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div :class="['card__pick']" props.product.color>
+    <div @click="clickCard" :class="['card__pick']" :style="{ backgroundColor: props.product.color }">
       <div class="card__pick__img">
         <img :src="props.product.image" :alt="product.name" class="card__pick__img__product" />
         <div v-if="product.save" :class="['card__pick__img__save', props.product.colorSave]">
@@ -14,7 +14,7 @@
         <div class="card__pick__descr__reviews">
           <div class="card__pick__descr__reviews__svg">
             <svg
-              v-for="(i, index) in Math.round(props.product.rating)"
+              v-for="(i, index) in Math.round(props.product.rating || 0)"
               :key="index"
               width="17"
               height="16"
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type IProduct } from '@/types/Product'
+import { type IProduct } from '@/types/product'
 import modalTemplate from '@/components/ui/modal-template.vue';
 import mainButton from '@/components/ui/main-button.vue';
 import { reactive } from 'vue';
@@ -51,6 +51,10 @@ import { reactive } from 'vue';
 interface IState {
   isShowModal:boolean
 }
+interface IEmits {
+    (e:'clickCard',product:IProduct):void
+}
+const emit = defineEmits<IEmits>()
 
 const props = defineProps<{
   product: IProduct
@@ -59,7 +63,9 @@ const state = reactive<IState>({
   isShowModal:false
 })
 
-
+function clickCard(){
+  emit('clickCard',props.product)
+}
 
 function addToCart(){
 state.isShowModal = true
@@ -77,6 +83,8 @@ console.log('closeModal',state.isShowModal)
     .card {
       display: flex;
       flex-direction: column;
+      align-items: center;
+
 
       &__pick {
         display: flex;

@@ -12,13 +12,17 @@
 import { ref, onMounted } from 'vue'
 import TabMenu from './tab-menu.vue'
 import ProductCart from './product-cart.vue'
-import { type IProduct } from '@/types/Product'
-import { EARBUDS, WIRELESS, WIRED } from '@/mock/data/mock-products'
+import { type IProduct } from '@/types/product'
+import { CategoryProducts } from '@/types/category'
+import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
 
 const menuItems = ['Earbuds', 'Wireless', 'Wired']
 const currentProducts = ref<IProduct[]>([])
 
-const productsArrays = [EARBUDS, WIRELESS, WIRED]
+const productsArrays = [MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.EARBUDS)),
+  MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.WIRELESS)),
+  MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.WIRED)),
+]
 
 function switchTab(index: number) {
   currentProducts.value = productsArrays[index]
