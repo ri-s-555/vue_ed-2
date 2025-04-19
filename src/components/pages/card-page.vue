@@ -23,6 +23,9 @@
       </div>
     </div>
   </div>
+
+
+
   <div v-else class="card-page container">
     <div class="card-page__header">Товар не найден</div>
   </div>
@@ -39,7 +42,9 @@ const route = useRoute();
 const product = ref<IProduct | null>(null);
 
 onMounted(() => {
-  const id = parseInt(route.params.id, 10);
+  const id = parseInt(route.params.id);
+  console.log(id)
+
 
   if (isNaN(id)) {
     console.log('Некорректный ID');
