@@ -174,4 +174,3 @@ console.log('closeModal',state.isShowModal)
     }
 </style>
 
-

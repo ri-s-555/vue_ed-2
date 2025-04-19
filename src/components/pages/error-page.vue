@@ -1,5 +1,5 @@
 <template>
-  <div class="error-page">
+  <div class="error-page container">
     <img src="/img/cat 404.png" alt="Error Image" class="error-image" />
     <h1 class="error-message">It looks like you need to log in to view this page.</h1>
     <mainButton title="Login" @click="redirectToLogin" />

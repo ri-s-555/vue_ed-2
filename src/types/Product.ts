@@ -1,4 +1,5 @@
 export interface IProduct {
+  id: number
   color?: string
   colorSave?: string
   name: string

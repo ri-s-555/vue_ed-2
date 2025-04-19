@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <div class="login-page container">
     <h1>Personal account</h1>
     <form @submit.prevent="handleSubmit">
       <!-- слушает формы, отмена перезагрузки > метод -->
