@@ -1,177 +1,126 @@
 <template>
-  <div class="card">
-    <div :class="['card__pick']" props.product.color>
-      <div class="card__pick__img">
-        <img :src="props.product.image" :alt="product.name" class="card__pick__img__product" />
-        <div v-if="product.save" :class="['card__pick__img__save', props.product.colorSave]">
-          Save ${{ props.product.save }}
-        </div>
+  <div class="card-page container" v-if="product">
+    <div class="card-page__header">{{ product.name || 'Название отсутствует' }}</div>
+    <div class="card-page__router">
+      <div>{{ routePath }}</div>
+    </div>
+    <div class="card-page__layer">
+      <div class="card-page__layer__img">
+        <img :src="product.image" :alt="product.name" class="card-page__layer__img__product" />
       </div>
-      <div class="card__pick__descr">
-        <div class="card__pick__descr__name">
-          {{ props.product.name }}
-        </div>
-        <div class="card__pick__descr__reviews">
-          <div class="card__pick__descr__reviews__svg">
-            <svg
-              v-for="(i, index) in Math.round(props.product.rating)"
-              :key="index"
-              width="17"
-              height="16"
-              viewBox="0 0 17 16"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.5 0L10.4084 5.87336L16.584 5.87336L11.5878 9.50329L13.4962 15.3766L8.5 11.7467L3.50383 15.3766L5.41219 9.50329L0.416019 5.87336L6.59163 5.87336L8.5 0Z"
-                fill="#C00C00"
-              ></path>
-            </svg>
+      <div class="card-page__layer__descr">
+        <div class="card-page__layer__descr__details">
+          <div class="card-page__layer__descr__name">{{ product.name }}</div>
+          <div class="card-page__layer__descr__brand" v-if="product.brand">{{ product.brand }}</div>
+          <div class="card-page__layer__descr__model" v-if="product.model">{{ product.model }}</div>
+          <div class="card-page__layer__descr__description" v-if="product.description">{{ product.description }}</div>
+          <div class="card-page__layer__descr__price" v-if="product.price">${{ product.price }}</div>
+          <div class="card-page__layer__descr__delivery">
+            Доставка: {{ product.deliveryAvailable ? 'Доступна' : 'Недоступна' }}
           </div>
-          <div class="card__pick__descr__reviews__text">{{ props.product.review }} reviews</div>
         </div>
-        <div class="card__pick__descr__price">${{ props.product.price }}</div>
+        <mainButton @click="addToCart" title="Buy Now" />
       </div>
     </div>
-
-    <mainButton @click="addToCart" title="Buy Now"/>
-    <modalTemplate v-if="state.isShowModal" @close="closeModal">
-        Add to cart
-    <template v-if="false" #footer>123</template>
-    </modalTemplate>
+  </div>
+  <div v-else class="card-page container">
+    <div class="card-page__header">Товар не найден</div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { type IProduct } from '@/types/Product'
-import modalTemplate from '@/components/ui/modal-template.vue';
+import { ref, onMounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { CARTS_IN_PAGE } from '@/mock/data/mock-products';
+import { type IProduct } from '@/types/Product';
 import mainButton from '@/components/ui/main-button.vue';
-import { reactive } from 'vue';
 
-interface IState {
-  isShowModal:boolean
+const route = useRoute();
+const product = ref<IProduct | null>(null);
+
+onMounted(() => {
+  const id = parseInt(route.params.id, 10);
+
+  if (isNaN(id)) {
+    console.log('Некорректный ID');
+    return;
+  }
+
+  product.value = CARTS_IN_PAGE.find(p => p.id === id) || null;
+
+  if (!product.value) {
+    console.log('Продукт не найден');
+  }
+});
+
+
+
+
+
+
+///
+const routePath = computed(() => route.path);
+// const routePath = computed(() => { return route.path;});
+
+function addToCart() {
+  if (product.value) {
+    console.log('Товар добавлен в корзину:', product.value.name);
+  }
 }
 
-const props = defineProps<{
-  product: IProduct
-}>()
-const state = reactive<IState>({
-  isShowModal:false
-})
-
-
-
-function addToCart(){
-state.isShowModal = true
-console.log('addToCart',state.isShowModal)
-}
-function closeModal(){
-  state.isShowModal = false
-console.log('closeModal',state.isShowModal)
-
-}
 </script>
 
 <style lang="scss">
 @use '@/scss/colors' as *;
-    .card {
+.card-page {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  background: $second-color;
+
+  &__header {
+    width: 465px;
+    height: 54px;
+    font-size: 44px;
+    font-weight: 600;
+    line-height: 53.64px;
+    text-align: center;
+    color: $black;
+    margin-top: 20px;
+    margin-bottom: 15px;
+  }
+  &__router {
+
+    background: rgba($color: #9dd37b, $alpha: 1.0) ;
+    text-align: left;
+    font-size: 24px;
+  }
+  &__layer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: rgba($color: #9dd37b, $alpha: 1.0) ;
+    &__img {
+      background: rgba($color: #7ba0d3, $alpha: 1.0) ;
+      width: 300px
+
+    }
+    &__descr {
       display: flex;
       flex-direction: column;
+      width: 650px;
+      padding: 30px;
 
-      &__pick {
+      &__details {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        width: 361px;
-        height: 438px;
-        border-radius: 25px;
-
-
-        &__img {
-          position: relative;
-
-          &__product {
-            width: 196px;
-            height: 196px;
-            margin-top: 30px;
-          }
-
-          &__save {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 21.94px;
-            text-align: center;
-            color: rgba(255, 255, 255, 1);
-
-            width: 100px;
-            height: 100px;
-            padding-top: 25px;
-            border-radius: 50px;
-            position: absolute;
-            top: 20px;
-            left: 160px;
-          }
-        }
-
-        &__descr {
-          display: flex;
-          flex-direction: column;
-          width: 319px;
-          height: 164px;
-          border-radius: 25px;
-          background: rgba(255, 255, 255, 1);
-          padding: 31px 76px 30px 52px;
-
-          &__name {
-            font-size: 21px;
-            font-weight: 500;
-            line-height: 35px;
-            text-align: left;
-            color: rgba(43, 38, 38, 1);
-          }
-
-          &__reviews {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 5px;
-
-            &__svg {
-              display: flex;
-            }
-
-            &__text {
-              font-size: 11px;
-              font-weight: 500;
-              line-height: 35px;
-              text-align: left;
-              color: rgba(136, 136, 136, 1);
-            }
-          }
-
-          &__price {
-            font-size: 21px;
-            font-weight: 600;
-            line-height: 25.6px;
-            text-align: left;
-            color: rgba(43, 38, 38, 1);
-          }
-        }
+        background: rgba($color: #d37bc6, $alpha: 1.0) ;
+        padding: 15px, 15px, 20px, 50px;
       }
     }
-    .button_add {
-       width: 361px;
-       height: 70px;
-       border-radius: 10px;
-       background: $primary-color;
-       font-size: 21px;
-       font-weight: 600;
-       line-height: 25.6px;
-       text-align: center;
-       color: rgba(255, 255, 255, 1);
-       margin-top: 29px;
-       border-color: rgba(0, 0, 0, 0);
-    }
+  }
+}
 </style>
-
-

@@ -87,11 +87,11 @@ function addToCart(){
 state.isShowModal = true
 console.log('addToCart',state.isShowModal)
 }
-function closeModal(){
-  state.isShowModal = false
-console.log('closeModal',state.isShowModal)
+// function closeModal(){
+//   state.isShowModal = false
+// console.log('closeModal',state.isShowModal)
 
-}
+// }
 
 function exploreMore() {
   alert('Exploring more products...')

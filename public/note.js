@@ -96,3 +96,193 @@
 </button> -->
 
 <!-- <button class="login-button">
+
+
+// список основных страниц, которые обычно присутствуют в интернет-магазинах:
+
+// 1. Главная страница (Home Page)
+// Описание: Основная страница, на которую попадают пользователи при входе на сайт. Обычно содержит обзор товаров, акции, новинки и другие важные разделы.
+// Пример пути: /
+// 2. Страница категорий (Category Page)
+// Описание: Страница, на которой отображаются товары, отфильтрованные по категориям (например, одежда, электроника, книги и т.д.).
+// Пример пути: /category/:categoryName
+// 3. Страница товара (Product Page)
+// Описание: Страница, на которой отображается подробная информация о конкретном товаре, включая изображения, описание, цену, отзывы и кнопку "Добавить в корзину".
+// Пример пути: /product/:id
+// 4. Страница корзины (Cart Page)
+// Описание: Страница, на которой отображаются товары, добавленные пользователем в корзину, с возможностью изменения количества товаров и перехода к оформлению заказа.
+// Пример пути: /cart
+// 5. Страница оформления заказа (Checkout Page)
+// Описание: Страница, на которой пользователь вводит данные для оформления заказа, включая адрес доставки, способ оплаты и подтверждение заказа.
+// Пример пути: /checkout
+// 6. Страница входа (Login Page)
+// Описание: Страница, на которой пользователь может войти в свой аккаунт, введя имя пользователя и пароль.
+// Пример пути: /login
+// 7. Страница регистрации (Register Page)
+// Описание: Страница, на которой новые пользователи могут зарегистрироваться, создав аккаунт.
+// Пример пути: /register
+// 8. Страница профиля пользователя (User Profile Page)
+// Описание: Страница, на которой пользователь может просматривать и редактировать информацию о своем профиле, включая личные данные, историю заказов и настройки аккаунта.
+// Пример пути: /profile
+// 9. Страница "О нас" (About Us Page)
+// Описание: Страница, на которой представлена информация о компании, ее миссии, истории и команде.
+// Пример пути: /about
+// 10. Страница контактов (Contact Us Page)
+// Описание: Страница, на которой пользователи могут найти контактную информацию компании и форму для отправки сообщений или вопросов.
+// Пример пути: /contact
+// 11. Страница "Часто задаваемые вопросы" (FAQ Page)
+// Описание: Страница, на которой собраны ответы на часто задаваемые вопросы пользователей.
+// Пример пути: /faq
+// 12. Страница политики конфиденциальности (Privacy Policy Page)
+// Описание: Страница, на которой описана политика конфиденциальности компании, включая информацию о том, как собираются, используются и защищаются данные пользователей.
+// Пример пути: /privacy-policy
+// 13. Страница условий использования (Terms of Service Page)
+// Описание: Страница, на которой описаны условия использования сайта и услуг компании.
+// Пример пути: /terms-of-service
+// 14. Страница ошибки (Error Page)
+// Описание: Страница, на которую перенаправляются пользователи в случае ошибки (например, если страница не найдена или требуется аутентификация).
+// Пример пути: /:pathMatch(.*)*
+// Пример маршрутизатора с дополнительными страницами
+import { createRouter, createWebHistory } from 'vue-router';
+import mainPage from '@/components/pages/main-page.vue';
+import categoryPage from '@/components/pages/category-page.vue';
+import productPage from '@/components/pages/product-page.vue';
+import cartPage from '@/components/pages/cart-page.vue';
+import checkoutPage from '@/components/pages/checkout-page.vue';
+import loginPage from '@/components/pages/login-page.vue';
+import registerPage from '@/components/pages/register-page.vue';
+import profilePage from '@/components/pages/profile-page.vue';
+import aboutPage from '@/components/pages/about-page.vue';
+import contactPage from '@/components/pages/contact-page.vue';
+import faqPage from '@/components/pages/faq-page.vue';
+import privacyPolicyPage from '@/components/pages/privacy-policy-page.vue';
+import termsOfServicePage from '@/components/pages/terms-of-service-page.vue';
+import errorPage from '@/components/pages/error-page.vue';
+
+import { RouteNames } from '@/types/Route-names';
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      component: mainPage,
+      name: RouteNames.Main,
+      meta: {
+        title: 'Main',
+      },
+    },
+    {
+      path: '/category/:categoryName',
+      component: categoryPage,
+      name: RouteNames.Category,
+      meta: {
+        title: 'Category',
+      },
+    },
+    {
+      path: '/product/:id',
+      component: productPage,
+      name: RouteNames.Product,
+      meta: {
+        title: 'Product',
+      },
+    },
+    {
+      path: '/cart',
+      component: cartPage,
+      name: RouteNames.Cart,
+      meta: {
+        title: 'Cart',
+        withOutHeader: true,
+      },
+    },
+    {
+      path: '/checkout',
+      component: checkoutPage,
+      name: RouteNames.Checkout,
+      meta: {
+        title: 'Checkout',
+        needAuth: true,
+      },
+    },
+    {
+      path: '/login',
+      component: loginPage,
+      name: RouteNames.Login,
+      meta: {
+        title: 'Login',
+        withOutHeader: true,
+      },
+    },
+    {
+      path: '/register',
+      component: registerPage,
+      name: RouteNames.Register,
+      meta: {
+        title: 'Register',
+        withOutHeader: true,
+      },
+    },
+    {
+      path: '/profile',
+      component: profilePage,
+      name: RouteNames.Profile,
+      meta: {
+        title: 'Profile',
+        needAuth: true,
+      },
+    },
+    {
+      path: '/about',
+      component: aboutPage,
+      name: RouteNames.About,
+      meta: {
+        title: 'About',
+      },
+    },
+    {
+      path: '/contact',
+      component: contactPage,
+      name: RouteNames.Contact,
+      meta: {
+        title: 'Contact',
+      },
+    },
+    {
+      path: '/faq',
+      component: faqPage,
+      name: RouteNames.FAQ,
+      meta: {
+        title: 'FAQ',
+      },
+    },
+    {
+      path: '/privacy-policy',
+      component: privacyPolicyPage,
+      name: RouteNames.PrivacyPolicy,
+      meta: {
+        title: 'Privacy Policy',
+      },
+    },
+    {
+      path: '/terms-of-service',
+      component: termsOfServicePage,
+      name: RouteNames.TermsOfService,
+      meta: {
+        title: 'Terms of Service',
+      },
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      component: errorPage,
+      name: RouteNames.Error,
+      meta: {
+        title: 'Error',
+        withOutHeader: true,
+      },
+    },
+  ],
+});
+
+export default router;
