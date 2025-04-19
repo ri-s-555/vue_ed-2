@@ -9,6 +9,7 @@
         'outline-button': props.type === ButtonType.OUTLINE,
         'full-round-button': props.type === ButtonType.FULL_ROUND,
         'inline-round-button': props.type === ButtonType.INLINE_ROUND,
+        'icon-button': props.type === ButtonType.ICON,
       },
       props.class,
     ]"
@@ -76,6 +77,8 @@ function click() {
     transform: translateY(-2px);
   }
 }
+
+
 
 .full-round-button {
   display: flex;

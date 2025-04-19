@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import mainPage from '@/pages/main-page.vue'
-import cardPage from '@/pages/card-page.vue'
-import errorPage from '@/pages/error-page.vue'
-import loginPage from '@/pages/login-page.vue'
+import mainPage from '@/components/pages/main-page.vue'
+import cardPage from '@/components/pages/card-page.vue'
+import errorPage from '@/components/pages/error-page.vue'
+import loginPage from '@/components/pages/login-page.vue'
 
-import { RouteNames } from './types'
+import { RouteNames } from '@/types/Route-names'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
