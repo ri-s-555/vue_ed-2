@@ -1,0 +1,8 @@
+export enum CategoryProducts {
+  TOP_PICKS = 'TOP_PICKS',
+  WATCHES = 'WATCHES',
+  EARBUDS = 'EARBUDS',
+  WIRELESS = 'WIRELESS',
+  WIRED = 'WIRED',
+  CARTS_IN_PAGE = 'CARTS_IN_PAGE',
+}

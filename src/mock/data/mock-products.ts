@@ -1,12 +1,8 @@
-import { type IProduct } from '@/types/Product'
-
-export const enum CategoryProducts  {TOP_PICKS, WATCHES, EARBUDS, WIRELESS, WIRED, CARTS_IN_PAGE}
-
+import { type IProduct } from '@/types/product'
+import { CategoryProducts } from '@/types/category'
 
 
-
-
-export const TOP_PICKS: IProduct[] = [
+export const MOCK_PRODUCTS: IProduct[] = [
   {
     id: 1,
     name: 'Top Pick 1',
@@ -21,6 +17,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model X',
     deliveryAvailable: true,
     description: 'This is a top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 2,
@@ -36,6 +33,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Y',
     deliveryAvailable: true,
     description: 'Another top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 3,
@@ -51,6 +49,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Z',
     deliveryAvailable: true,
     description: 'Yet another top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 4,
@@ -66,6 +65,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Alpha',
     deliveryAvailable: true,
     description: 'A high-quality top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 5,
@@ -81,6 +81,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Beta',
     deliveryAvailable: true,
     description: 'Another high-quality top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 6,
@@ -96,6 +97,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Gamma',
     deliveryAvailable: true,
     description: 'A premium top pick product.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 7,
@@ -111,6 +113,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Delta',
     deliveryAvailable: true,
     description: 'A top pick product with great features.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 8,
@@ -126,6 +129,7 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Epsilon',
     deliveryAvailable: true,
     description: 'A top pick product with advanced features.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
   {
     id: 9,
@@ -141,10 +145,9 @@ export const TOP_PICKS: IProduct[] = [
     model: 'Model Zeta',
     deliveryAvailable: true,
     description: 'A top pick product with the latest technology.',
+    category: [CategoryProducts.TOP_PICKS ,CategoryProducts.WATCHES],
   },
-];
 
-export const WATCHES: IProduct[] = [
   {
     id: 10,
     name: 'Smart Watch 1',
@@ -157,6 +160,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Alpha',
     deliveryAvailable: true,
     description: 'A high-tech smart watch.',
+    category: [CategoryProducts.WATCHES],
   },
   {
     id: 11,
@@ -170,6 +174,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Beta',
     deliveryAvailable: true,
     description: 'Another high-tech smart watch.',
+    category: [CategoryProducts.WATCHES],
   },
   {
     id: 12,
@@ -183,6 +188,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Gamma',
     deliveryAvailable: true,
     description: 'A premium smart watch.',
+    category: [CategoryProducts.WATCHES],
   },
   {
     id: 13,
@@ -196,6 +202,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Delta',
     deliveryAvailable: true,
     description: 'A smart watch with great features.',
+    category: [CategoryProducts.WATCHES],
   },
   {
     id: 14,
@@ -209,6 +216,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Epsilon',
     deliveryAvailable: true,
     description: 'A smart watch with advanced features.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 15,
@@ -222,6 +230,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Zeta',
     deliveryAvailable: true,
     description: 'A smart watch with the latest technology.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 16,
@@ -235,6 +244,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Eta',
     deliveryAvailable: true,
     description: 'A high-end smart watch.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 17,
@@ -248,6 +258,7 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Theta',
     deliveryAvailable: true,
     description: 'A luxury smart watch.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 18,
@@ -261,10 +272,9 @@ export const WATCHES: IProduct[] = [
     model: 'Watch Iota',
     deliveryAvailable: true,
     description: 'A smart watch with premium features.',
+    category: [CategoryProducts.WIRELESS],
   },
-];
 
-export const EARBUDS: IProduct[] = [
   {
     id: 19,
     name: 'Earbuds 1',
@@ -277,6 +287,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Pro',
     deliveryAvailable: true,
     description: 'High-quality earbuds.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 20,
@@ -290,6 +301,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Max',
     deliveryAvailable: true,
     description: 'Another set of high-quality earbuds.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 21,
@@ -303,6 +315,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Ultra',
     deliveryAvailable: true,
     description: 'Yet another set of high-quality earbuds.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 22,
@@ -316,6 +329,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Alpha',
     deliveryAvailable: true,
     description: 'Earbuds with great sound quality.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 23,
@@ -329,6 +343,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Beta',
     deliveryAvailable: true,
     description: 'Earbuds with advanced features.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 24,
@@ -342,6 +357,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Gamma',
     deliveryAvailable: true,
     description: 'Earbuds with the latest technology.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 25,
@@ -355,6 +371,7 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Delta',
     deliveryAvailable: true,
     description: 'Premium earbuds.',
+    category: [CategoryProducts.EARBUDS],
   },
   {
     id: 26,
@@ -381,10 +398,9 @@ export const EARBUDS: IProduct[] = [
     model: 'Earbuds Zeta',
     deliveryAvailable: true,
     description: 'Earbuds with premium sound quality.',
+    category: [CategoryProducts.EARBUDS],
   },
-];
 
-export const WIRELESS: IProduct[] = [
   {
     id: 28,
     name: 'Wireless Headphones 1',
@@ -397,6 +413,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Headphones Wireless',
     deliveryAvailable: true,
     description: 'Wireless headphones with great sound.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 29,
@@ -410,6 +427,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Speaker Wireless',
     deliveryAvailable: true,
     description: 'A powerful wireless speaker.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 30,
@@ -423,6 +441,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Headphones Wireless Pro',
     deliveryAvailable: true,
     description: 'High-quality wireless headphones.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 31,
@@ -436,6 +455,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Speaker Wireless Max',
     deliveryAvailable: true,
     description: 'A high-end wireless speaker.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 32,
@@ -449,6 +469,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Headphones Wireless Ultra',
     deliveryAvailable: true,
     description: 'Premium wireless headphones.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 33,
@@ -462,6 +483,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Speaker Wireless Pro',
     deliveryAvailable: true,
     description: 'A powerful wireless speaker with advanced features.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 34,
@@ -475,6 +497,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Headphones Wireless Alpha',
     deliveryAvailable: true,
     description: 'Wireless headphones with the latest technology.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 35,
@@ -488,6 +511,7 @@ export const WIRELESS: IProduct[] = [
     model: 'Speaker Wireless Beta',
     deliveryAvailable: true,
     description: 'A wireless speaker with great sound quality.',
+    category: [CategoryProducts.WIRELESS],
   },
   {
     id: 36,
@@ -501,10 +525,9 @@ export const WIRELESS: IProduct[] = [
     model: 'Headphones Wireless Gamma',
     deliveryAvailable: true,
     description: 'High-end wireless headphones with advanced features.',
+    category: [CategoryProducts.WIRELESS],
   },
-];
 
-export const WIRED: IProduct[] = [
   {
     id: 37,
     name: 'Wired Headphones 1',
@@ -517,6 +540,7 @@ export const WIRED: IProduct[] = [
     model: 'Headphones Wired',
     deliveryAvailable: true,
     description: 'High-quality wired headphones.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 38,
@@ -530,6 +554,7 @@ export const WIRED: IProduct[] = [
     model: 'Earbuds Wired',
     deliveryAvailable: true,
     description: 'Affordable wired earbuds.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 39,
@@ -543,6 +568,7 @@ export const WIRED: IProduct[] = [
     model: 'Headphones Wired Pro',
     deliveryAvailable: true,
     description: 'Premium wired headphones.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 40,
@@ -556,6 +582,7 @@ export const WIRED: IProduct[] = [
     model: 'Earbuds Wired Max',
     deliveryAvailable: true,
     description: 'High-quality wired earbuds.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 41,
@@ -569,6 +596,7 @@ export const WIRED: IProduct[] = [
     model: 'Headphones Wired Ultra',
     deliveryAvailable: true,
     description: 'Wired headphones with great sound quality.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 42,
@@ -582,6 +610,7 @@ export const WIRED: IProduct[] = [
     model: 'Earbuds Wired Alpha',
     deliveryAvailable: true,
     description: 'Affordable wired earbuds with good features.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 43,
@@ -595,6 +624,7 @@ export const WIRED: IProduct[] = [
     model: 'Headphones Wired Beta',
     deliveryAvailable: true,
     description: 'Wired headphones with advanced features.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 44,
@@ -608,6 +638,7 @@ export const WIRED: IProduct[] = [
     model: 'Earbuds Wired Gamma',
     deliveryAvailable: true,
     description: 'Wired earbuds with the latest technology.',
+    category: [CategoryProducts.WIRED],
   },
   {
     id: 45,
@@ -622,9 +653,6 @@ export const WIRED: IProduct[] = [
     deliveryAvailable: true,
     description: 'High-end wired headphones.',
   },
-];
-
-export const CARTS_IN_PAGE: IProduct[] = [
   {
     id: 46,
     name: 'Product in Cart 1',
@@ -742,6 +770,4 @@ export const CARTS_IN_PAGE: IProduct[] = [
     deliveryAvailable: true,
     description: 'A product in the cart with the latest technology.',
   },
-];
-
-CategoryProducts["WATCHES"]
+]

@@ -34,15 +34,15 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { CARTS_IN_PAGE } from '@/mock/data/mock-products';
-import { type IProduct } from '@/types/Product';
+import { MOCK_PRODUCTS } from '@/mock/data/mock-products';
+import { type IProduct } from '@/types/product';
 import mainButton from '@/components/ui/main-button.vue';
 
 const route = useRoute();
 const product = ref<IProduct | null>(null);
 
 onMounted(() => {
-  const id = parseInt(route.params.id);
+  const id = parseInt(route.params.id as string);
   console.log(id)
 
 
@@ -51,7 +51,7 @@ onMounted(() => {
     return;
   }
 
-  product.value = CARTS_IN_PAGE.find(p => p.id === id) || null;
+  product.value = MOCK_PRODUCTS.find(p => p.id === id) || null;
 
   if (!product.value) {
     console.log('Продукт не найден');

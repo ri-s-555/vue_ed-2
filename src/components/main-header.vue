@@ -38,7 +38,7 @@
   <nav class="container menu">
     <ul>
       <li class="features">Features</li>
-      <li class="products">Products</li>
+      <li class="products"><router-link :to="RoutePaths.CategoryList">Products</router-link></li>
       <li class="blog">Blog</li>
       <li class="about">About</li>
     </ul>
@@ -50,7 +50,7 @@
 import { reactive } from 'vue'
 import mainButton from '@/components/ui/main-button.vue'
 import { ButtonType } from '@/components/ui/ui-types';
-
+import { RoutePaths } from '@/types/Route-names';
 interface IState {
   inputValue: string
 }

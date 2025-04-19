@@ -3,7 +3,12 @@
     <div class="sellers-header">Top Sellers</div>
     <TabMenu :tabs="menuItems" menuClass="__menu" @tab-switched="switchTab" />
     <div class="sellers-product-wrapper">
-      <ProductCart v-for="(product, index) in currentProducts" :key="index" :product="product" />
+      <ProductCart
+        @clickCard="clickCard"
+        v-for="(product, index) in currentProducts"
+        :key="index"
+        :product="product"
+      />
     </div>
   </div>
 </template>
@@ -12,13 +17,28 @@
 import { ref, onMounted } from 'vue'
 import TabMenu from '@/components/tab-menu.vue'
 import ProductCart from '@/components/product-cart.vue'
-import { type IProduct } from '@/types/Product'
-import { TOP_PICKS, WATCHES } from '@/mock/data/mock-products'
+import { type IProduct } from '@/types/product'
+import { CategoryProducts } from '@/types/category'
+import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
+
+interface IEmits {
+  (e: 'clickCard', product: IProduct): void
+}
+const emit = defineEmits<IEmits>()
 
 const menuItems = ['Top Picks', 'Watches']
 const currentProducts = ref<IProduct[]>([])
 
-const productsArrays = [TOP_PICKS, WATCHES]
+
+const productsArrays = MOCK_PRODUCTS.reduce((acc, product) => {
+  if (product.category?.includes(CategoryProducts.TOP_PICKS)) {
+    acc[0].push(product)
+  } else if (product.category?.includes(CategoryProducts.WATCHES)) {
+    acc[1].push(product)
+  }
+  return acc
+}, [[] as IProduct[], [] as IProduct[]])
+
 
 function switchTab(index: number) {
   currentProducts.value = productsArrays[index]
@@ -28,6 +48,10 @@ onMounted(() => {
   // По умолчанию показываем первую категорию
   currentProducts.value = productsArrays[0]
 })
+
+function clickCard(product: IProduct) {
+  emit('clickCard', product)
+}
 </script>
 
 <style lang="scss">

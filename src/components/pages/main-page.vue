@@ -100,7 +100,7 @@ import mainButton from '@/components/ui/main-button.vue';
 // }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 .latest-product {
   display: flex;
