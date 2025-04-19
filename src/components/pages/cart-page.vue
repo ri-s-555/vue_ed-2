@@ -3,7 +3,7 @@
     <div class="cart-page-new__header">
       <h1 class="cart-page-new__title">Корзина</h1>
     </div>
-    <div v-if="cartItems.length === 0" class="cart-page-new__empty">
+    <div  class="cart-page-new__empty">
       <div class="cart-page-new__empty__img">
         <img
           src="/img/cat cart.png"
@@ -21,7 +21,7 @@
 
     <!-- <div class="recently-view-cart"></div> -->
 
-    <ul v-else class="cart-page-new__items">
+    <!-- <ul v-else class="cart-page-new__items">
       <li v-for="item in limitedCartItems" :key="item.id" class="cart-page-new__items__item">
         <div class="cart-page-new-ite__items__image">
           <img src="@/../public/img/Top_Picks_1.png" :alt="item.name" />
@@ -32,7 +32,7 @@
         </div>
         <mainButton title="Remove" @click="removeProduct(item.id)" />
       </li>
-    </ul>
+    </ul> -->
 
     <!-- <div class="cart-page-new-summary">
       <div class="cart-page-new-summary__total">Итого: <span id="totalPrice">0 руб.</span></div>
@@ -51,15 +51,15 @@ import { TOP_PICKS, WATCHES, EARBUDS, WIRELESS, WIRED, CARTS_IN_PAGE } from '@/m
 import { type IProduct } from '@/types/Product';
 import mainButton from '@/components/ui/main-button.vue'
 
-const cartItems = ref<IProduct[]>([...TOP_PICKS, ...WATCHES, ...EARBUDS, ...WIRELESS, ...WIRED, ...CARTS_IN_PAGE]);
+// const cartItems = ref<IProduct[]>([...TOP_PICKS, ...WATCHES, ...EARBUDS, ...WIRELESS, ...WIRED, ...CARTS_IN_PAGE]);
 
-const limitedCartItems = computed(() => {
-  return cartItems.value.slice(0, 5);
-});
+// const limitedCartItems = computed(() => {
+//   return cartItems.value.slice(0, 5);
+// });
 
-const removeProduct = (productId: number) => {
-  cartItems.value = cartItems.value.filter(item => item.id !== productId);
-};
+// const removeProduct = (productId: number) => {
+//   cartItems.value = cartItems.value.filter(item => item.id !== productId);
+// };
 
 
 

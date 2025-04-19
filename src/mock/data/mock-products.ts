@@ -1,5 +1,10 @@
 import { type IProduct } from '@/types/Product'
 
+export const enum CategoryProducts  {TOP_PICKS, WATCHES, EARBUDS, WIRELESS, WIRED, CARTS_IN_PAGE}
+
+
+
+
 
 export const TOP_PICKS: IProduct[] = [
   {
@@ -738,3 +743,5 @@ export const CARTS_IN_PAGE: IProduct[] = [
     description: 'A product in the cart with the latest technology.',
   },
 ];
+
+CategoryProducts["WATCHES"]
