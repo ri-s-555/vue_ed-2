@@ -4,7 +4,20 @@ export enum CategoryProducts {
   EARBUDS = 'EARBUDS',
   WIRELESS = 'WIRELESS',
   WIRED = 'WIRED',
-  CARTS_IN_PAGE = 'CARTS_IN_PAGE',
+}
+export enum CategoryTitles {
+  EARBUDS = 'Earbuds',
+  WIRELESS = 'Wireless',
+  WIRED = 'Wired',
+  TOP_PICKS = 'Top Picks',
+  WATCHES = 'Watches',
+}
+export const CategoryProductsTitles: Record<CategoryProducts, CategoryTitles> = {
+  [CategoryProducts.TOP_PICKS]: CategoryTitles.TOP_PICKS,
+  [CategoryProducts.WATCHES]: CategoryTitles.WATCHES,
+  [CategoryProducts.EARBUDS]: CategoryTitles.EARBUDS,
+  [CategoryProducts.WIRELESS]: CategoryTitles.WIRELESS,
+  [CategoryProducts.WIRED]: CategoryTitles.WIRED,
 }
 
 export const CATEGORY_IMAGES: Record<CategoryProducts, string> = {
@@ -13,5 +26,4 @@ export const CATEGORY_IMAGES: Record<CategoryProducts, string> = {
   [CategoryProducts.EARBUDS]: './img/category_3.png',
   [CategoryProducts.WIRELESS]: './img/category_4.png',
   [CategoryProducts.WIRED]: './img/category_5.png',
-  [CategoryProducts.CARTS_IN_PAGE]: './img/category_1.png',
 };

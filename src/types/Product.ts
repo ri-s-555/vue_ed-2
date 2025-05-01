@@ -1,5 +1,12 @@
 import { CategoryProducts } from '@/types/category'
 
+/**
+ * @interface IProduct
+ * @property {number} id - Идентификатор продукта
+ * @property {string} color - Цвет продукта
+ * @property {string} colorSave - Цвет сохранения продукта
+ * @property {string} name - Название продукта
+ */
 export interface IProduct {
   id: number
   color?: string
@@ -17,5 +24,6 @@ export interface IProduct {
   deliveryAvailable?: boolean,
   description?: string
   category?: CategoryProducts[]
+  isNew: boolean
 }
 
