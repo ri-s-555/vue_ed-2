@@ -20,6 +20,8 @@
       </div>
     </div>
     <div v-else class="cart-page-new__items">
+      <mainButton @click="clearCart" title="Очистить корзину"/>
+
       <div v-for="item in cart" :key="item.id" class="cart-page-new__items__list">
         <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
         <div class="cart-page-new__items__list__detalies">
@@ -32,9 +34,10 @@
       <div class="cart-page-new__total__summary">Total: <span id="totalPrice">{{ totalPrice }}</span></div>
     </div>
     <div class="cart-page-new__button">
+      <!-- почему не отображается зеленым -->
       <mainButton @click="redirectToCategory" title="Продолжить покупки" />
       <mainButton @click="placingAnOrder" title="Оформить заказ" />
-      <mainButton @click="clearCart" title="Очистить корзину"/>
+
     </div>
     </div>
 
@@ -65,11 +68,6 @@
 
 
 </template>
-
-
-
-
-
 
 <script lang="ts" setup>
 import { ref, onMounted, reactive, computed } from 'vue' // +computed
@@ -174,12 +172,8 @@ console.log('closeModal',state.isShowModal)
     margin-top: 20px;
     width: 1100px;
     display: flex;
-
-    justify-content: space-between;
-    align-content: flex-start;
-    align-items: flex-start;
-    flex-wrap: wrap;
     flex-direction: column;
+    align-items: flex-end;
 
     &__list {
       width: 1100px;
@@ -216,18 +210,22 @@ console.log('closeModal',state.isShowModal)
     }
   }
   &__total {
-    width: 1200px;
+    display: grid;
+    place-items: center;
+    width: 1100px;
     height: 50px;
     border-radius: 20px;
     box-shadow: 0 0 50px rgba(149, 136, 136, 0.38);
-    text-align: center;
     margin-bottom: 30px;
+
+    font-size: 24px;
+      color: $text-dark;
+      text-align: right; // yt ghbvtyztnccz
   }
   &__button {
-    width: 1200px;
+    width: 1100px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
     gap: 30px;
   }
 }

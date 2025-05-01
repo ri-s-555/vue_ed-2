@@ -5,7 +5,10 @@
 
 
       <div class="category-list__page__item" v-for="category in CategoryProducts" :key="category">
-        <router-link :to="`${RoutePaths.CategoryList}/${category}`">{{ category }}</router-link>
+        <router-link :to="`${RoutePaths.CategoryList}/${category}`">    <p>{{ category }}</p>  <img class="category-list__page__item__img" :src="CATEGORY_IMAGES[category]"    />
+
+
+        </router-link >
       </div>
 
     </div>
@@ -13,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { CategoryProducts } from '@/types/category'
+import { CategoryProducts, CATEGORY_IMAGES } from '@/types/category'
 import { RoutePaths } from '@/types/Route-names'
 
 
@@ -40,10 +43,14 @@ h1 {
     border-radius: 5px;
     padding: 10px;
     text-align: center;
-    width: 170px;
-    height: 40px;
+    width: 200px;
+    height: 200px;
     transition: background-color 0.3s;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
     &:hover {
       background-color: #e0e0e0;
@@ -57,6 +64,12 @@ h1 {
       &:hover {
         color: #007bff;
       }
+    }
+
+    &__img {
+      width: 100px;
+      height: 100px;
+
     }
   }
 }

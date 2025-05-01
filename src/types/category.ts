@@ -7,12 +7,11 @@ export enum CategoryProducts {
   CARTS_IN_PAGE = 'CARTS_IN_PAGE',
 }
 
-
-// export const categoryImages = {
-//   [CategoryProducts.TOP_PICKS]: './img/category_1.png',
-//   [CategoryProducts.WATCHES]: './img/category_2.png',
-//   [CategoryProducts.EARBUDS]: './img/category_3.png',
-//   [CategoryProducts.WIRELESS]: './img/category_4.png',
-//   [CategoryProducts.WIRED]: './img/category_5.png',
-//   [CategoryProducts.CARTS_IN_PAGE]: './img/category_1.png',
-// };
+export const CATEGORY_IMAGES: Record<CategoryProducts, string> = {
+  [CategoryProducts.TOP_PICKS]: './img/category_1.png',
+  [CategoryProducts.WATCHES]: './img/category_2.png',
+  [CategoryProducts.EARBUDS]: './img/category_3.png',
+  [CategoryProducts.WIRELESS]: './img/category_4.png',
+  [CategoryProducts.WIRED]: './img/category_5.png',
+  [CategoryProducts.CARTS_IN_PAGE]: './img/category_1.png',
+};
