@@ -3,7 +3,7 @@
     <div class="cart-page-new__header">
       <h1 class="cart-page-new__title">Корзина</h1>
     </div>
-    <div v-if="cart.length === 0" class="cart-page-new__empty">
+    <div v-if="state.products.length === 0" class="cart-page-new__empty">
       <div class="cart-page-new__empty__img">
         <img
           src="/img/cat cart.png"
@@ -20,34 +20,33 @@
       </div>
     </div>
     <div v-else class="cart-page-new__items">
-      <mainButton @click="clearCart" title="Очистить корзину"/>
+      <mainButton @click="clearCart" title="Очистить корзину" />
 
-      <div v-for="item in cart" :key="item.id" class="cart-page-new__items__list">
+      <div v-for="item in state.products" :key="item.id" class="cart-page-new__items__list">
         <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
         <div class="cart-page-new__items__list__detalies">
           <div class="cart-page-new__items__list__detalies__name">{{ item.name }}</div>
           <div class="cart-page-new__items__list__detalies__price">${{ item.price }}</div>
-          <mainButton @click="removeCard(item.id)" title="X" :type="ButtonType.ICON"/>
+          <mainButton @click="removeCard(item.id)" title="X" :type="ButtonType.ICON" />
         </div>
       </div>
       <div class="cart-page-new__total">
-      <div class="cart-page-new__total__summary">Total: <span id="totalPrice">{{ totalPrice }}</span></div>
+        <div class="cart-page-new__total__summary">
+          Total: <span id="totalPrice">{{ totalPrice }}</span>
+        </div>
+      </div>
+      <div class="cart-page-new__button">
+        <!-- почему не отображается зеленым -->
+        <mainButton @click="redirectToCategory" title="Продолжить покупки" />
+        <mainButton @click="placingAnOrder" title="Оформить заказ" />
+      </div>
     </div>
-    <div class="cart-page-new__button">
-      <!-- почему не отображается зеленым -->
-      <mainButton @click="redirectToCategory" title="Продолжить покупки" />
-      <mainButton @click="placingAnOrder" title="Оформить заказ" />
-
-    </div>
-    </div>
-
   </div>
-
 
   <modalTemplate v-if="state.isShowModal" @close="closeModal" title="Оформление заказа">
     <div class="order-form">
       <div class="order-items">
-        <div v-for="item in cart" :key="item.id" class="order-item">
+        <div v-for="item in state.products" :key="item.id" class="order-item">
           <!-- <img :src="item.image" :alt="item.name" class="order-item__image" /> -->
           <span class="order-item__name">{{ item.name }}</span>
           <!-- <span class="order-item__price">${{ item.price }}</span> -->
@@ -62,39 +61,25 @@
       </div>
     </template> -->
   </modalTemplate>
-
-
-
-
-
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, reactive, computed } from 'vue' // +computed
+import { onMounted, reactive, computed } from 'vue' // +computed
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue'
-import {ButtonType} from '@/components/ui/ui-types'
+import { ButtonType } from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
 
-const cart = ref<IProduct[]>([])
-
-onMounted(() => {
-  const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') // данные из ЛС по ключу или нал, или строка, которую преобразую в объект
-  cart.value = savedCart
-  console.log('корзина обновлена и отображается', cart.value)
-})
-
-
 function clearCart() {
   localStorage.removeItem('cart')
-  cart.value = []
+  state.products = []
   console.log('Корзина очищена')
 }
 function removeCard(id: number) {
-  cart.value = cart.value.filter(item => item.id !== id);
-  localStorage.setItem('cart', JSON.stringify(cart.value));
-  console.log('элемент удален из корзины', id);
+  state.products = state.products.filter((item) => item.id !== id)
+  localStorage.setItem('cart', JSON.stringify(state.products))
+  console.log('элемент удален из корзины', id)
 }
 
 const router = useRouter()
@@ -102,41 +87,36 @@ const redirectToCategory = () => {
   router.push({ name: 'CategoryList' })
 }
 
-interface IModalState {
-  isShowModal: boolean;
-  // isLoading: boolean;
-  // orderData: {
-  //   items: IProduct[];
-  //   total: number;
-  // } | null;
+interface IState {
+  isShowModal: boolean
+  products: IProduct[]
 }
 
-const state = reactive<IModalState>({
+const state = reactive<IState>({
   isShowModal: false,
-  // isLoading: false,
-  // orderData: null
+  products: [],
 })
 
 const totalPrice = computed(() => {
-  return cart.value.reduce((total, item) => total + (item.price || 0), 0).toFixed(2)
+  return state.products.reduce((total, item) => total + (item.price || 0), 0).toFixed(2)
 })
 
-function placingAnOrder ( ) {
+function placingAnOrder() {
   try {
-    // state.orderData = {
-    //   items: [...cart.value],
-    //   total: Number(totalPrice.value)
-    // }
     state.isShowModal = true
   } catch (error) {
     console.error('ошибка. случилось это:', error)
   }
 }
-function closeModal(){
+function closeModal() {
   state.isShowModal = false
-  // state.orderData = null
-console.log('closeModal',state.isShowModal)
 }
+
+onMounted(() => {
+  const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') // данные из ЛС по ключу или нал, или строка, которую преобразую в объект
+  state.products = savedCart
+  console.log('корзина обновлена и отображается', state.products)
+})
 </script>
 
 <style lang="scss">
@@ -197,7 +177,6 @@ console.log('closeModal',state.isShowModal)
         font-size: 24px;
         color: $text-dark;
 
-
         &__name {
           font-weight: bold;
           align-items: center;
@@ -219,8 +198,8 @@ console.log('closeModal',state.isShowModal)
     margin-bottom: 30px;
 
     font-size: 24px;
-      color: $text-dark;
-      text-align: right; // yt ghbvtyztnccz
+    color: $text-dark;
+    text-align: right; // yt ghbvtyztnccz
   }
   &__button {
     width: 1100px;
