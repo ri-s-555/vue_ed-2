@@ -1,4 +1,4 @@
-<style>
+{/* <style>
 .modal {
   position: fixed;
   top: 0;
@@ -95,7 +95,7 @@
 <div class="items-added-button-text">0 Items Added</div>
 </button> -->
 
-<!-- <button class="login-button">
+<!-- <button class="login-button"> */}
 
 
 // список основных страниц, которые обычно присутствуют в интернет-магазинах:
@@ -286,3 +286,35 @@ const router = createRouter({
 });
 
 export default router;
+
+
+
+
+
+
+// <modalTemplate v-if="state.isShowModal" @close="closeModal" title="Оформление заказа">
+// <div class="order-form">
+//  <div class="order-items">
+//    <div v-for="item in cart" :key="item.id" class="order-item">
+//      <!-- <img :src="item.image" :alt="item.name" class="order-item__image" /> -->
+//      <span class="order-item__name">{{ item.name }}</span>
+//      <span class="order-item__price">${{ item.price }}</span>
+//    </div>
+//  </div>
+
+
+
+// <!-- <div class="order-total">
+// Итого: ${{ totalPrice }}
+// </div> -->
+// </div>
+
+
+// <template #footer>
+// <div class="modal-actions">
+// <mainButton @click="confirmOrder" title="Подтвердить" />
+// <mainButton @click="closeModal" title="Отмена" :type="ButtonType.OUTLINE" />
+// </div>
+// </template>
+
+// </modalTemplate>

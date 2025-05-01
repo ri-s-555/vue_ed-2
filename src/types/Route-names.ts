@@ -6,6 +6,10 @@ export enum RouteNames {
   Cart = 'Cart',
   Category = 'Category',
   CategoryList = 'CategoryList',
+  About = 'About',
+  Blog = 'Blog',
+  Features = 'Features',
+  Profile = 'Profile'
 
 }
 
@@ -17,4 +21,8 @@ export enum RoutePaths {
   Cart = '/cart',
   Category = '/category/:category',
   CategoryList = '/category',
+  About = '/about',
+  Blog = '/blog',
+  Features = '/features',
+  Profile = '/proffile'
 }

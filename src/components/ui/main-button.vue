@@ -131,4 +131,17 @@ function click() {
     color: rgb(255, 255, 255);
   }
 }
+
+.icon-button {
+width: 50px;
+height: 50px;
+border-radius: 50%;
+
+  &:hover {
+    background: rgba(93, 20, 210, 0.231);
+    box-shadow: 0px 25px 50px 0px rgba(137, 96, 203, 0.25);
+    transform: translateY(-2px);
+  }
+}
+
 </style>

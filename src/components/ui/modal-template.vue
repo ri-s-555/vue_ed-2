@@ -58,8 +58,8 @@ function close() {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    &_title {
-    }
+    // &_title {
+    // }
 
     &_close {
       position: absolute;

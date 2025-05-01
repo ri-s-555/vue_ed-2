@@ -79,18 +79,17 @@ function selectColor(index: number) {
   selectedColor.value = index
 }
 
-// function addToCart() {
-//   alert(`Added ${product.title} in ${colors[selectedColor.value].fill} color to cart`)
-// }
-
-function addToCart(){
-state.isShowModal = true
-console.log('addToCart',state.isShowModal)
+function addToCart() {
+  alert(`Added ${product.title} in ${colors[selectedColor.value].fill} color to cart`)
 }
+
+// function addToCart(){
+// state.isShowModal = true
+// console.log('addToCart',state.isShowModal)
+// }
 // function closeModal(){
 //   state.isShowModal = false
 // console.log('closeModal',state.isShowModal)
-
 // }
 
 function exploreMore() {

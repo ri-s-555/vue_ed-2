@@ -3,18 +3,29 @@
     <div class="trending-earphones__header">Trending Earphones</div>
     <TabMenu :tabs="menuItems" menuClass="trending-earphones__menu" @tab-switched="switchTab" />
     <div class="trending-earphones__product-wrapper">
-      <ProductCart v-for="(product, index) in currentProducts" :key="index" :product="product" />
+      <!-- <ProductCart v-for="(product, index) in currentProducts" :key="index" :product="product" /> -->
+      <ProductCart
+        @clickCard="clickCard"
+        v-for="(product, index) in currentProducts"
+        :key="index"
+        :product="product"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue'
-import TabMenu from './tab-menu.vue'
-import ProductCart from './product-cart.vue'
-import { type IProduct } from '@/types/product'
+import TabMenu from '@/components/tab-menu.vue'
+import ProductCart from '@/components/product-cart.vue'
+import { type IProduct } from '@/types/Product'
 import { CategoryProducts } from '@/types/category'
 import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
+
+interface IEmits {
+  (e: 'clickCard', product: IProduct): void
+}
+const emit = defineEmits<IEmits>()
 
 const menuItems = ['Earbuds', 'Wireless', 'Wired']
 const currentProducts = ref<IProduct[]>([])
@@ -31,6 +42,9 @@ function switchTab(index: number) {
 onMounted(() => {
   currentProducts.value = productsArrays[0]
 })
+function clickCard(product: IProduct) {
+  emit('clickCard', product)
+}
 </script>
 
 <style lang="scss">

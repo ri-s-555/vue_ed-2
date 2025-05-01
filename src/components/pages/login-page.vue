@@ -12,13 +12,22 @@
         </div>
       </div>
 
-      <mainButton title="Login" />
+      <mainButton @click="redirectToProfile" title="Login" />
     </form>
   </div>
 </template>
 
 <script lang="ts" setup>
 import mainButton from '@/components/ui/main-button.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const redirectToProfile = () => {
+  router.push({ name: 'Profile' })
+}
+
+
 
 // export default {
 //   name: 'LoginPage'

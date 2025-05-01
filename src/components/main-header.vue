@@ -30,27 +30,46 @@
           </svg>
         </button>
       </div>
-      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND"/>
+      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND"  @click="redirectToCart"/>
 
-      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND" />
+      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND"  @click="redirectToLogin"/>
+      <!-- @click="openModal" -->
+
     </div>
   </div>
   <nav class="container menu">
     <ul>
-      <li class="features">Features</li>
+      <li class="features"><router-link :to="RoutePaths.Features">Features</router-link></li>
       <li class="products"><router-link :to="RoutePaths.CategoryList">Products</router-link></li>
-      <li class="blog">Blog</li>
-      <li class="about">About</li>
+      <li class="blog"><router-link :to="RoutePaths.Blog">Blog</router-link></li>
+      <li class="about"><router-link :to="RoutePaths.About">About</router-link></li>
     </ul>
   </nav>
 
+  <!-- <ModalComponent :isOpen="isModalOpen" @close="closeModal" title="Login Form">
+    <form @submit.prevent="handleSubmit">
+      <div>
+        <div class="form-group">
+          <input type="text" id="username" v-model="username" placeholder="Username" required />
+        </div>
+        <div class="form-group">
+          <input type="password" id="password" v-model="password" placeholder="Password" required />
+        </div>
+      </div>
+      <mainButton title="Login" />
+    </form>
+  </ModalComponent> -->
 </template>
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
+// import { ref } from 'vue'
 import mainButton from '@/components/ui/main-button.vue'
-import { ButtonType } from '@/components/ui/ui-types';
-import { RoutePaths } from '@/types/Route-names';
+import { ButtonType } from '@/components/ui/ui-types'
+import { RoutePaths } from '@/types/Route-names'
+// import ModalComponent from '@/components/ui/modal-template.vue'
+import { useRouter } from 'vue-router'
+
 interface IState {
   inputValue: string
 }
@@ -58,6 +77,32 @@ interface IState {
 const state = reactive<IState>({
   inputValue: '',
 })
+const router = useRouter()
+const redirectToLogin = () => {
+  router.push({ name: 'Login' })
+}
+const redirectToCart = () => {
+  router.push({ name: 'Cart' })
+}
+
+// const isModalOpen = ref(false);
+// const username = ref('');
+// const password = ref('');
+
+// function openModal() {
+//   isModalOpen.value = true;
+// }
+
+// function closeModal() {
+//   isModalOpen.value = false;
+// }
+
+// function handleSubmit() {
+//   // Обработка отправки формы
+//   console.log('Username:', username.value);
+//   console.log('Password:', password.value);
+//   closeModal();
+// }
 </script>
 
 <style lang="scss">
@@ -99,8 +144,6 @@ const state = reactive<IState>({
     list-style-type: none;
   }
 }
-
-
 
 @include mixins.isTablet() {
   header {

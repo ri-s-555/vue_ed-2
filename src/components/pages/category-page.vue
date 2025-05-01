@@ -1,12 +1,14 @@
 <template>
   <div>
     <sellersProduct @clickCard="clickCard" />
+    <trendingEarphones @clickCard="clickCard" />
   </div>
 </template>
 
 <script setup lang="ts">
 import sellersProduct from '@/components/sellers-product.vue'
-import { type IProduct } from '@/types/product'
+import trendingEarphones from '@/components/trending-earphones.vue'
+import { type IProduct } from '@/types/Product'
 import { CategoryProducts } from '@/types/category'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'

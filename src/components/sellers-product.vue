@@ -9,6 +9,7 @@
         :key="index"
         :product="product"
       />
+      <!-- <ProductCart v-for="(product, index) in currentProducts" :key="index" :product="product" /> -->
     </div>
   </div>
 </template>
@@ -17,7 +18,7 @@
 import { ref, onMounted } from 'vue'
 import TabMenu from '@/components/tab-menu.vue'
 import ProductCart from '@/components/product-cart.vue'
-import { type IProduct } from '@/types/product'
+import { type IProduct } from '@/types/Product'
 import { CategoryProducts } from '@/types/category'
 import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
 
@@ -30,7 +31,11 @@ const menuItems = ['Top Picks', 'Watches']
 const currentProducts = ref<IProduct[]>([])
 
 
-const productsArrays = MOCK_PRODUCTS.reduce((acc, product) => {
+// const productsArrays = [MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.TOP_PICKS)), // Проходит по массиву MOCK_PRODUCTS два раза, но каждый раз создает новый массив только для нужных элементов.
+//   MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.WATCHES)),
+// ]
+
+const productsArrays = MOCK_PRODUCTS.reduce((acc, product) => { // Проходит по массиву MOCK_PRODUCTS один раз, но выполняет дополнительные операции для добавления элементов в подмассивы.
   if (product.category?.includes(CategoryProducts.TOP_PICKS)) {
     acc[0].push(product)
   } else if (product.category?.includes(CategoryProducts.WATCHES)) {
@@ -45,8 +50,7 @@ function switchTab(index: number) {
 }
 
 onMounted(() => {
-  // По умолчанию показываем первую категорию
-  currentProducts.value = productsArrays[0]
+  currentProducts.value = productsArrays[0] // По умолчанию показываем первую категорию
 })
 
 function clickCard(product: IProduct) {

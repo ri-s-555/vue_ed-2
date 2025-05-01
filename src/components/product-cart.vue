@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { type IProduct } from '@/types/product'
+import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue';
 import mainButton from '@/components/ui/main-button.vue';
 import { reactive } from 'vue';
@@ -64,17 +64,38 @@ const state = reactive<IState>({
 })
 
 function clickCard(){
-  emit('clickCard',props.product)
+  emit('clickCard',props.product) //эмитит событие склик с данными о продукте
 }
 
 function addToCart(){
-state.isShowModal = true
-console.log('addToCart',state.isShowModal)
+const cart = JSON.parse(localStorage.getItem('cart') || '[]'); // получила
+console.log('корзины сейчас', cart);
+
+cart.push(props.product); // добавила
+
+localStorage.setItem('cart', JSON.stringify(cart)); // обновила
+console.log('обновила корзину', JSON.parse(localStorage.getItem('cart') || '[]'));
+
+state.isShowModal = true;
+console.log('добавлено в корзину', props.product);
+console.log('состояние молдалки', state.isShowModal);
 }
+
+// @click="checkIfCartHasItems
+// function checkIfCartHasItems() {
+//   if (cart.value.length > 0) {
+//     console.log('Корзина не пуста:', cart.value);
+//   } else {
+//     console.log('Корзина пуста');
+//   }
+// }
+
+
+
+
 function closeModal(){
   state.isShowModal = false
 console.log('closeModal',state.isShowModal)
-
 }
 </script>
 
@@ -153,7 +174,7 @@ console.log('closeModal',state.isShowModal)
               font-weight: 500;
               line-height: 35px;
               text-align: left;
-              color: rgba(136, 136, 136, 1);
+              color: rgb(46, 20, 164);
             }
           }
 

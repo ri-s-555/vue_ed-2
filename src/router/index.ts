@@ -7,16 +7,38 @@ import cartPage from '@/components/pages/cart-page.vue'
 import categoryPage from '@/components/pages/category-page.vue'
 import categoryListPage from '@/components/pages/category-list-page.vue'
 import { RouteNames,RoutePaths } from '@/types/Route-names'
+import AboutPage from '@/components/pages/about-page.vue'
+import BlogPage from '@/components/pages/blog-page.vue'
+import FeaturesPage from '@/components/pages/features-page.vue'
+import profilePage from '@/components/pages/profile-page.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: RoutePaths.Main,
+      path: '/',
       component: mainPage,
       name: RouteNames.Main,
       meta: {
         title: 'Main',
+      },
+    },
+    {
+      path: '/login',
+      component: loginPage,
+      name: RouteNames.Login,
+      meta: {
+        title: 'Login',
+        withOutHeader: true,
+      },
+    },
+    {
+      path: '/profile',
+      component: profilePage,
+      name: RouteNames.Profile,
+      meta: {
+        title: 'Profile',
+        withOutHeader: true,
       },
     },
     {
@@ -26,15 +48,14 @@ const router = createRouter({
       meta: {
         title: 'Card',
         needAuth: true,
-      },
-    },
+      },},
     {
-      path: RoutePaths.Cart,
-      component: cartPage,
-      name: RouteNames.Cart,
+      path: '/card/:id',
+      component: cardPage,
+      name: RouteNames.Card,
       meta: {
-        title: 'Cart',
-        withOutHeader: true,
+        title: 'Card',
+        needAuth: true,
       },
     },
     {
@@ -54,16 +75,40 @@ const router = createRouter({
       },
     },
     {
-      path: RoutePaths.Login,
-      component: loginPage,
-      name: RouteNames.Login,
+      path: RoutePaths.Cart,
+      component: cartPage,
+      name: RouteNames.Cart,
       meta: {
-        title: 'Login',
+        title: 'Cart',
         withOutHeader: true,
       },
     },
     {
-      path: RoutePaths.Error,
+      path: '/about',
+      component: AboutPage,
+      name: RouteNames.About,
+      meta: {
+        title: 'About',
+      },
+    },
+    {
+      path: '/blog',
+      component: BlogPage,
+      name: RouteNames.Blog,
+      meta: {
+        title: 'Blog',
+      },
+    },
+    {
+      path: '/features',
+      component: FeaturesPage,
+      name: RouteNames.Features,
+      meta: {
+        title: 'Features',
+      },
+    },
+    {
+      path: '/:pathMatch(.*)*',
       component: errorPage,
       name: RouteNames.Error,
       meta: {
