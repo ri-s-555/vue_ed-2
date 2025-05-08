@@ -1,6 +1,7 @@
 <template>
   <div>
     <category-wrapper :currentCategory="state.currentCategory"
+    :title="getTitleForCategory(state.currentCategory)"
     :menuItems="state.menuItems" @clickCard="clickCard" />
   </div>
 </template>
@@ -9,13 +10,14 @@
 // import sellersProduct from '@/components/sellers-product.vue'
 // import trendingEarphones from '@/components/trending-earphones.vue'
 import categoryWrapper from '@/components/category-wrapper.vue'
-import { CategoryTitles } from '@/types/category'
+import { CategoryTitles, CategoryProducts  } from '@/types/category'
 import { type IProduct } from '@/types/Product'
-import { CategoryProducts } from '@/types/category'
+import { CategoryProductsTitles } from '@/types/category'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'
 // import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
-// import { getProducts } from '@/service/product-api'
+import getProducts from '@/service/product-api'
+
 
 const route = useRoute()
 const router = useRouter()
@@ -36,6 +38,10 @@ function clickCard(product: IProduct) {
   router.push(`/card/${product.id}`)
 }
 
+function getTitleForCategory(category: CategoryProducts): string {
+  return CategoryProductsTitles[category]
+}
+
 function getMenuItems() {
   if ([CategoryProducts.TOP_PICKS, CategoryProducts.WATCHES].includes(state.currentCategory)) {
     state.menuItems =[CategoryTitles.TOP_PICKS, CategoryTitles.WATCHES]
@@ -44,7 +50,7 @@ function getMenuItems() {
   }
 }
 
-onMounted(() => {
+onMounted(async () => {
   if (state.currentCategory) {
     const products = await getProducts()
     state.products = products.filter((product) => product.category?.includes(state.currentCategory))  }

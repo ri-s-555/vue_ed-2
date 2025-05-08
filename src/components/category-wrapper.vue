@@ -3,7 +3,11 @@
     <div class="sellers-header">{{ props.title }}</div>
     <TabMenu :initialTab="indexCurrentCategory" :tabs="props.menuItems" menuClass="__menu" @tab-switched="switchTab" />
     <div class="sellers-product-wrapper">
-      <ProductCart @clickCard="clickCard" /> </div></div>
+      <ProductCart
+        v-for="product in currentProducts"
+        :key="product.id"
+        :product="product"
+        @clickCard="clickCard" /> </div></div>
 </template>
 
 

@@ -7,11 +7,11 @@ export enum CategoryProducts {
 }
 
 export enum CategoryTitles {
+  TOP_PICKS = 'Top Picks',
+  WATCHES = 'Watches',
   EARBUDS = 'Earbuds',
   WIRELESS = 'Wireless',
   WIRED = 'Wired',
-  TOP_PICKS = 'Top Picks',
-  WATCHES = 'Watches',
 }
 export const CategoryProductsTitles: Record<CategoryProducts, CategoryTitles> = {
   [CategoryProducts.TOP_PICKS]: CategoryTitles.TOP_PICKS,

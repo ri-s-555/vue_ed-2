@@ -6,3 +6,5 @@ async function getProducts() {
   console.log(data)
   return data
 }
+
+export default getProducts
