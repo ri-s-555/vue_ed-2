@@ -1,30 +1,40 @@
 import { type IProduct } from '@/types/Product';
 
-// Получение товаров
 async function getProducts() {
   const response = await fetch('http://localhost:3000/products');
   const data: IProduct[] = await response.json();
   return data;
 }
+// async function getProducts() {
+//   try {
+//     const response = await fetch('http://localhost:3000/products');
+//     if (!response.ok) {
+//       throw new Error(`HTTP ошибка! статус: ${response.status}`);
+//     }
+//     const data: IProduct[] = await response.json();
+//     return data;
+//   } catch (error) {
+//     console.error('Не удалось получить продукты:', error);
+//     return []; // Возвращаем пустой массив в случае ошибки
+//   }
+// }
 
-// Получение корзины
+
 async function getCart() {
   const response = await fetch('http://localhost:3000/cart');
   const data: IProduct[] = await response.json();
   return data;
 }
 
-// Добавление товара в корзину
 async function addToCart(product: IProduct) {
   const response = await fetch('http://localhost:3000/cart', {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(product),
-  });
-  const data = await response.text();
-  return data;
+    body: JSON.stringify(product)
+  })
+  return response.json()
 }
 
 // Удаление товара из корзины
@@ -37,4 +47,3 @@ async function removeFromCart(productId: number) {
 }
 
 export { getProducts, getCart, addToCart, removeFromCart };
-

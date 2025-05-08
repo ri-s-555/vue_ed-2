@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-// import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
+import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
 import { type IProduct } from '@/types/Product'
 import mainButton from '@/components/ui/main-button.vue'
 // import Modal from '@/components/ui/modal-template.vue';
@@ -73,7 +73,7 @@ onMounted(() => {
     return
   }
 
-  // product.value = MOCK_PRODUCTS.find((p) => p.id === id) || null
+  product.value = MOCK_PRODUCTS.find((p) => p.id === id) || null
 
   if (!product.value) {
     console.log('Продукт не найден')
