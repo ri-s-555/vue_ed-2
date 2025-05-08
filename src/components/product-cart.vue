@@ -50,6 +50,9 @@ import mainButton from '@/components/ui/main-button.vue'
 import { reactive } from 'vue'
 import { addToCart } from '@/service/product-api'
 
+
+
+
 interface IState {
   isShowModal:boolean
 }
