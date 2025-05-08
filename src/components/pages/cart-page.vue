@@ -75,19 +75,24 @@ import {ButtonType} from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
 
-
-
+import { getCart, removeFromCart } from '@/service/product-api'
 
 function clearCart() {
   localStorage.removeItem('cart')
   state.product = []
-  console.log('Корзина очищена')
 }
-function removeCard(id: number) {
+
+async function removeCard(id: number) {
+  await removeFromCart(id);
+  console.log(removeFromCart)
   state.product = state.product.filter(item => item.id !== id);
-  localStorage.setItem('cart', JSON.stringify(state.product));
-  console.log('элемент удален из корзины', id);
+  console.log('элемент удален из корзины', id)
 }
+// function removeCard(id: number) {
+//   state.product = state.product.filter(item => item.id !== id);
+//   localStorage.setItem('cart', JSON.stringify(state.product));
+//   console.log('элемент удален из корзины', id);
+// }
 
 const router = useRouter()
 const redirectToCategory = () => {
@@ -115,15 +120,21 @@ function placingAnOrder() {
     console.error('ошибка. случилось это:', error)
   }
 }
+
 function closeModal() {
   state.isShowModal = false
 console.log('closeModal',state.isShowModal)
 }
 
-onMounted(() => {
-  const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') // данные из ЛС по ключу или нал, или строка, которую преобразую в объект
-  state.product = savedCart
-  console.log('корзина обновлена и отображается', state.product)
+onMounted(async () => {
+  const savedCart = await getCart();
+  console.log(getCart)
+  state.product = savedCart;
+  console.log(savedCart)
+
+  // const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') // данные из ЛС по ключу или нал, или строка, которую преобразую в объект
+  // state.product = savedCart
+  // console.log('корзина обновлена и отображается', state.product)
 })
 </script>
 

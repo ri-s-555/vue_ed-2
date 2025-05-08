@@ -16,7 +16,7 @@ import { CategoryProductsTitles } from '@/types/category'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'
 // import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
-import getProducts from '@/service/product-api'
+import { getProducts } from '@/service/product-api'
 
 
 const route = useRoute()
