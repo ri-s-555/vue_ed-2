@@ -47,6 +47,7 @@ import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue';
 import mainButton from '@/components/ui/main-button.vue';
 import { reactive } from 'vue';
+import { addToCart } from '@/service/product-api'
 
 interface IState {
   isShowModal:boolean
@@ -67,19 +68,39 @@ function clickCard(){
   emit('clickCard',props.product) //эмитит событие склик с данными о продукте
 }
 
-function addToCart(){
-const cart = JSON.parse(localStorage.getItem('cart') || '[]'); // получила
-console.log('корзины сейчас', cart);
-
-cart.push(props.product); // добавила
-
-localStorage.setItem('cart', JSON.stringify(cart)); // обновила
-console.log('обновила корзину', JSON.parse(localStorage.getItem('cart') || '[]'));
-
-state.isShowModal = true;
-console.log('добавлено в корзину', props.product);
-console.log('состояние молдалки', state.isShowModal);
+async function addToCart(product: IProduct) {
+  try {
+    const response = await fetch('http://localhost:3000/cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(product),
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.text();
+    return data;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+    return '';
+  }
 }
+
+// function addToCart(){
+// const cart = JSON.parse(localStorage.getItem('cart') || '[]'); // получила
+// console.log('корзины сейчас', cart);
+
+// cart.push(props.product); // добавила
+
+// localStorage.setItem('cart', JSON.stringify(cart)); // обновила
+// console.log('обновила корзину', JSON.parse(localStorage.getItem('cart') || '[]'));
+
+// state.isShowModal = true;
+// console.log('добавлено в корзину', props.product);
+// console.log('состояние молдалки', state.isShowModal);
+// }
 
 // @click="checkIfCartHasItems
 // function checkIfCartHasItems() {
