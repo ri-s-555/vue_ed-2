@@ -85,8 +85,9 @@ const totalPrice = computed(() => {
 
 async function removeCard(id: number) {
   try {
-    await removeFromCart(id)
-    state.product = state.product.filter(item => item.id !== id)
+    const cart = await removeFromCart(id)
+    console.log(cart)
+    state.product = cart
   } catch (error) {
     console.error('Ошибка при удалении товара:', error)
   }

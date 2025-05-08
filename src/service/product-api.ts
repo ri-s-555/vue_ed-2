@@ -42,7 +42,7 @@ async function removeFromCart(productId: number) {
   const response = await fetch(`http://localhost:3000/cart/${productId}`, {
     method: 'DELETE',
   });
-  const data = await response.text();
+  const data = await response.json();
   return data;
 }
 
