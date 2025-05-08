@@ -3,7 +3,7 @@
     <div class="cart-page-new__header">
       <h1 class="cart-page-new__title">Корзина</h1>
     </div>
-    <div v-if="state.product.length === 0" class="cart-page-new__empty">
+    <div v-if="isEmpty " class="cart-page-new__empty">
       <div class="cart-page-new__empty__img">
         <img
           src="/img/cat cart.png"
@@ -22,28 +22,30 @@
     <div v-else class="cart-page-new__items">
       <!-- <mainButton @click="clearCart" title="Очистить корзину"/> -->
 
-      <div v-for="item in state.product" :key="item.id" class="cart-page-new__items__list">
+      <div v-for="item in state.products" :key="item.id" class="cart-page-new__items__list">
         <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
         <div class="cart-page-new__items__list__detalies">
           <div class="cart-page-new__items__list__detalies__name">{{ item.name }}</div>
           <div class="cart-page-new__items__list__detalies__price">${{ item.price }}</div>
-          <mainButton @click="removeCard(item.id)" title="X" :type="ButtonType.ICON"/>
+          <mainButton @click="removeCard(item.id)" title="X" :type="ButtonType.ICON" />
         </div>
       </div>
       <div class="cart-page-new__total">
-      <div class="cart-page-new__total__summary">Total: <span id="totalPrice">{{ totalPrice }}</span></div>
-    </div>
-    <div class="cart-page-new__button">
-      <mainButton @click="redirectToCategory" title="Продолжить покупки" />
-      <mainButton @click="placingAnOrder" title="Оформить заказ" />
-    </div>
+        <div class="cart-page-new__total__summary">
+          Total: <span id="totalPrice">{{ totalPrice }}</span>
+        </div>
+      </div>
+      <div class="cart-page-new__button">
+        <mainButton @click="redirectToCategory" title="Продолжить покупки" />
+        <mainButton @click="placingAnOrder" title="Оформить заказ" />
+      </div>
     </div>
   </div>
 
   <modalTemplate v-if="state.isShowModal" @close="closeModal" title="Оформление заказа">
     <div class="order-form">
       <div class="order-items">
-        <div v-for="item in state.product" :key="item.id" class="order-item">
+        <div v-for="item in state.products" :key="item.id" class="order-item">
           <!-- <img :src="item.image" :alt="item.name" class="order-item__image" /> -->
           <span class="order-item__name">{{ item.name }}</span>
           <!-- <span class="order-item__price">${{ item.price }}</span> -->
@@ -61,40 +63,46 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive, computed } from 'vue' // +computed
+import { reactive, computed, watch, onMounted } from 'vue' // +computed
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue'
-import {ButtonType} from '@/components/ui/ui-types'
+import { ButtonType } from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
 import { getCart, removeFromCart } from '@/service/product-api'
-
+import { useUserStore } from '@/stores/user-store'
 interface IState {
-  isShowModal: boolean;
-  product: IProduct[],
+  isShowModal: boolean
+  products: IProduct[]
 }
 
 const state = reactive<IState>({
   isShowModal: false,
-  product: [],
+  products: [],
 })
+const router = useRouter()
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
+const cartId = computed(() => user.value?.cartId)
+const isEmpty = computed(() => state.products.length === 0)
 
 const totalPrice = computed(() => {
-  return state.product.reduce((total: number, item: IProduct) => total + (item.price || 0), 0).toFixed(2)
+  return state.products
+    .reduce((total: number, item: IProduct) => total + (item.price || 0), 0)
+    .toFixed(2)
 })
 
 async function removeCard(id: number) {
   try {
     const cart = await removeFromCart(id)
     console.log(cart)
-    state.product = cart
+    state.products = cart
   } catch (error) {
     console.error('Ошибка при удалении товара:', error)
   }
 }
 
-const router = useRouter()
-const redirectToCategory = () => {
+function redirectToCategory() {
   router.push({ name: 'CategoryList' })
 }
 
@@ -108,18 +116,36 @@ function placingAnOrder() {
 
 function closeModal() {
   state.isShowModal = false
-console.log('closeModal',state.isShowModal)
+  console.log('closeModal', state.isShowModal)
+}
+async function getCartData() {
+
+    try {
+      if (cartId.value) {
+        const cartData = await getCart(cartId.value)
+        state.products = cartData.products
+      } else {
+        console.error('Корзина не найдена')
+      }
+    } catch (error) {
+      console.error('Ошибка при загрузке корзины:', error)
+    }
+
 }
 
 onMounted(async () => {
-  try {
-    const cartData = await getCart()
-    state.product = cartData
-    console.log(cartData)
-  } catch (error) {
-    console.error('Ошибка при загрузке корзины:', error)
-  }
+  getCartData()
 })
+
+watch(
+  () => cartId.value,
+  () => {
+    getCartData()
+  },
+  {
+    immediate: true,
+  }
+)
 </script>
 
 <style lang="scss">
@@ -180,7 +206,6 @@ onMounted(async () => {
         font-size: 24px;
         color: $text-dark;
 
-
         &__name {
           font-weight: bold;
           align-items: center;
@@ -202,8 +227,8 @@ onMounted(async () => {
     margin-bottom: 30px;
 
     font-size: 24px;
-      color: $text-dark;
-      text-align: right; // yt ghbvtyztnccz
+    color: $text-dark;
+    text-align: right; // yt ghbvtyztnccz
   }
   &__button {
     width: 1100px;

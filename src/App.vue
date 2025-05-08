@@ -2,13 +2,19 @@
 import mainHeader from './components/main-header.vue'
 import mainFooter from './components/main-footer.vue'
 import { useRoute } from 'vue-router'
-// import { computed } from 'vue'
-
+import { onMounted } from 'vue'
+import { getUser } from './service/user-api'
+import { useUserStore } from './stores/user-store'
 const route = useRoute()
-console.log(route)
+const { setUser } = useUserStore()
 
 const isWithOutHeader = route.meta.withOutHeader
-
+onMounted(async () => {
+  console.log('getUser')
+  const user = await getUser(1)
+  console.log('setUser')
+  setUser(user)
+})
 </script>
 
 <template>
@@ -17,6 +23,4 @@ const isWithOutHeader = route.meta.withOutHeader
   <mainFooter />
 </template>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>
