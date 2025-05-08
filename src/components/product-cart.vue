@@ -14,7 +14,7 @@
         <div class="card__pick__descr__reviews">
           <div class="card__pick__descr__reviews__svg">
             <svg
-              v-for="(i, index) in Math.round(props.product.rating || 0)"
+              v-for="index in Math.round(props.product.rating || 0)"
               :key="index"
               width="17"
               height="16"
@@ -34,7 +34,8 @@
       </div>
     </div>
 
-    <mainButton @click="addToCart" title="Buy Now"/>
+    <mainButton @click="handleAddToCart" title="Buy Now"/>
+
     <modalTemplate v-if="state.isShowModal" @close="closeModal">
         Add to cart
     <template v-if="false" #footer>123</template>
@@ -44,9 +45,9 @@
 
 <script lang="ts" setup>
 import { type IProduct } from '@/types/Product'
-import modalTemplate from '@/components/ui/modal-template.vue';
-import mainButton from '@/components/ui/main-button.vue';
-import { reactive } from 'vue';
+import modalTemplate from '@/components/ui/modal-template.vue'
+import mainButton from '@/components/ui/main-button.vue'
+import { reactive } from 'vue'
 import { addToCart } from '@/service/product-api'
 
 interface IState {
@@ -65,58 +66,21 @@ const state = reactive<IState>({
 })
 
 function clickCard(){
-  emit('clickCard',props.product) //эмитит событие склик с данными о продукте
+  emit('clickCard',props.product) //эмитит событие клик с данными о продукте
 }
 
-async function addToCart(product: IProduct) {
+async function handleAddToCart() {
   try {
-    const response = await fetch('http://localhost:3000/cart', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(product),
-    });
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    const data = await response.text();
-    return data;
+    await addToCart(props.product)
+    state.isShowModal = true
   } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
-    return '';
+    console.error('Ошибка при добавлении в корзину:', error)
   }
 }
-
-// function addToCart(){
-// const cart = JSON.parse(localStorage.getItem('cart') || '[]'); // получила
-// console.log('корзины сейчас', cart);
-
-// cart.push(props.product); // добавила
-
-// localStorage.setItem('cart', JSON.stringify(cart)); // обновила
-// console.log('обновила корзину', JSON.parse(localStorage.getItem('cart') || '[]'));
-
-// state.isShowModal = true;
-// console.log('добавлено в корзину', props.product);
-// console.log('состояние молдалки', state.isShowModal);
-// }
-
-// @click="checkIfCartHasItems
-// function checkIfCartHasItems() {
-//   if (cart.value.length > 0) {
-//     console.log('Корзина не пуста:', cart.value);
-//   } else {
-//     console.log('Корзина пуста');
-//   }
-// }
-
-
 
 
 function closeModal(){
   state.isShowModal = false
-console.log('closeModal',state.isShowModal)
 }
 </script>
 

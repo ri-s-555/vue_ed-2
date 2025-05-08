@@ -20,7 +20,7 @@
       </div>
     </div>
     <div v-else class="cart-page-new__items">
-      <mainButton @click="clearCart" title="Очистить корзину"/>
+      <!-- <mainButton @click="clearCart" title="Очистить корзину"/> -->
 
       <div v-for="item in state.product" :key="item.id" class="cart-page-new__items__list">
         <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
@@ -67,33 +67,7 @@ import modalTemplate from '@/components/ui/modal-template.vue'
 import {ButtonType} from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
-
 import { getCart, removeFromCart } from '@/service/product-api'
-
-// import { addToCart } from '@/service/product-api'
-
-
-function clearCart() {
-  localStorage.removeItem('cart')
-  state.product = []
-}
-
-async function removeCard(id: number) {
-  await removeFromCart(id);
-  console.log(removeFromCart)
-  state.product = state.product.filter(item => item.id !== id);
-  console.log('элемент удален из корзины', id)
-}
-// function removeCard(id: number) {
-//   state.product = state.product.filter(item => item.id !== id);
-//   localStorage.setItem('cart', JSON.stringify(state.product));
-//   console.log('элемент удален из корзины', id);
-// }
-
-const router = useRouter()
-const redirectToCategory = () => {
-  router.push({ name: 'CategoryList' })
-}
 
 interface IState {
   isShowModal: boolean;
@@ -106,8 +80,22 @@ const state = reactive<IState>({
 })
 
 const totalPrice = computed(() => {
-  return state.product.reduce((total, item) => total + (item.price || 0), 0).toFixed(2)
+  return state.product.reduce((total: number, item: IProduct) => total + (item.price || 0), 0).toFixed(2)
 })
+
+async function removeCard(id: number) {
+  try {
+    await removeFromCart(id)
+    state.product = state.product.filter(item => item.id !== id)
+  } catch (error) {
+    console.error('Ошибка при удалении товара:', error)
+  }
+}
+
+const router = useRouter()
+const redirectToCategory = () => {
+  router.push({ name: 'CategoryList' })
+}
 
 function placingAnOrder() {
   try {
@@ -123,14 +111,13 @@ console.log('closeModal',state.isShowModal)
 }
 
 onMounted(async () => {
-  const savedCart = await getCart();
-  console.log(getCart)
-  state.product = savedCart;
-  console.log(savedCart)
-
-  // const savedCart = JSON.parse(localStorage.getItem('cart') || '[]') // данные из ЛС по ключу или нал, или строка, которую преобразую в объект
-  // state.product = savedCart
-  // console.log('корзина обновлена и отображается', state.product)
+  try {
+    const cartData = await getCart()
+    state.product = cartData
+    console.log(cartData)
+  } catch (error) {
+    console.error('Ошибка при загрузке корзины:', error)
+  }
 })
 </script>
 
