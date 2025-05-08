@@ -50,13 +50,26 @@ function getMenuItems() {
   }
 }
 
+// onMounted(async() => {
+//   if (state.currentCategory) {
+//     const products = await getProducts()
+//     state.products = products.filter((product) => product.category?.includes(state.currentCategory))  }
+//     getMenuItems()
+//   console.log(route.params.category)
+// })
+
 onMounted(async () => {
   if (state.currentCategory) {
-    const products = await getProducts()
-    state.products = products.filter((product) => product.category?.includes(state.currentCategory))  }
-    getMenuItems()
-  console.log(route.params.category)
-})
+    try {
+      const products = await getProducts();
+      state.products = products.filter((product) => product.category?.includes(state.currentCategory));
+      getMenuItems();
+      console.log(route.params.category);
+    } catch (error) {
+      console.error('Ошибка при загрузке продуктов:', error);
+    }
+  }
+});
 </script>
 
 <style lang="scss" scoped>

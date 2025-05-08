@@ -38,9 +38,7 @@
       <mainButton @click="placingAnOrder" title="Оформить заказ" />
     </div>
     </div>
-
   </div>
-
 
   <modalTemplate v-if="state.isShowModal" @close="closeModal" title="Оформление заказа">
     <div class="order-form">
@@ -60,11 +58,6 @@
       </div>
     </template> -->
   </modalTemplate>
-
-
-
-
-
 </template>
 
 <script lang="ts" setup>
@@ -76,6 +69,9 @@ import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
 
 import { getCart, removeFromCart } from '@/service/product-api'
+
+// import { addToCart } from '@/service/product-api'
+
 
 function clearCart() {
   localStorage.removeItem('cart')
