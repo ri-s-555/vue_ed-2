@@ -6,7 +6,7 @@ import loginPage from '@/components/pages/login-page.vue'
 import cartPage from '@/components/pages/cart-page.vue'
 import categoryPage from '@/components/pages/category-page.vue'
 import categoryListPage from '@/components/pages/category-list-page.vue'
-import { RouteNames,RoutePaths } from '@/types/Route-names'
+import { RouteNames, RoutePaths } from '@/types/Route-names'
 import AboutPage from '@/components/pages/about-page.vue'
 import BlogPage from '@/components/pages/blog-page.vue'
 import FeaturesPage from '@/components/pages/features-page.vue'
@@ -43,14 +43,6 @@ const router = createRouter({
     },
     {
       path: RoutePaths.Card,
-      component: cardPage,
-      name: RouteNames.Card,
-      meta: {
-        title: 'Card',
-        needAuth: true,
-      },},
-    {
-      path: '/card/:id',
       component: cardPage,
       name: RouteNames.Card,
       meta: {

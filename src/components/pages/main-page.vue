@@ -93,11 +93,7 @@
 
 <script lang="ts" setup>
 import mainButton from '@/components/ui/main-button.vue';
-// import { ButtonType } from '@/components/ui/ui-types';
 
-// export default {
-//   name: 'LoginPage'
-// }
 </script>
 
 <style lang="scss" scoped>

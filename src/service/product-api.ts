@@ -1,28 +1,13 @@
 import { type IProduct } from '@/types/Product';
-
+import { type ICart } from '@/types/cart';
 async function getProducts() {
   const response = await fetch('http://localhost:3000/products');
   const data: IProduct[] = await response.json();
   return data;
 }
-// async function getProducts() {
-//   try {
-//     const response = await fetch('http://localhost:3000/products');
-//     if (!response.ok) {
-//       throw new Error(`HTTP ошибка! статус: ${response.status}`);
-//     }
-//     const data: IProduct[] = await response.json();
-//     return data;
-//   } catch (error) {
-//     console.error('Не удалось получить продукты:', error);
-//     return []; // Возвращаем пустой массив в случае ошибки
-//   }
-// }
-
-
-async function getCart() {
-  const response = await fetch('http://localhost:3000/cart');
-  const data: IProduct[] = await response.json();
+async function getCart(cartId: number) {
+  const response = await fetch(`http://localhost:3000/cart/${cartId}`);
+  const data: ICart = await response.json();
   return data;
 }
 
