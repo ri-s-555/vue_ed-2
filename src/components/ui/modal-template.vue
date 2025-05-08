@@ -13,9 +13,17 @@
   </teleport>
 </template>
 <script setup lang="ts">
+
+/**
+ * @param {string} title - Заголовок модального окна
+ */
 interface IEmit {
   (event: 'close'): void
 }
+
+/**
+ * @param {string} title - Заголовок модального окна
+ */
 interface IProps{
     title?:string
 }
