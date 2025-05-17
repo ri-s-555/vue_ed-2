@@ -3,7 +3,7 @@
     <div class="cart-page-new__header">
       <h1 class="cart-page-new__title">Корзина</h1>
     </div>
-    <div v-if="isEmpty " class="cart-page-new__empty">
+    <div v-if="isEmpty" class="cart-page-new__empty">
       <div class="cart-page-new__empty__img">
         <img
           src="/img/cat cart.png"
@@ -27,7 +27,7 @@
         <div class="cart-page-new__items__list__detalies">
           <div class="cart-page-new__items__list__detalies__name">{{ item.name }}</div>
           <div class="cart-page-new__items__list__detalies__price">${{ item.price }}</div>
-          <mainButton @click="removeCard(item.id)" title="X" :type="ButtonType.ICON" />
+          <mainButton @click="removeCard(item)" title="X" :type="ButtonType.ICON" />
         </div>
       </div>
       <div class="cart-page-new__total">
@@ -69,8 +69,9 @@ import modalTemplate from '@/components/ui/modal-template.vue'
 import { ButtonType } from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import { useRouter } from 'vue-router'
-import { getCart, removeFromCart } from '@/service/product-api'
-import { useUserStore } from '@/stores/user-store'
+import useCartService from '@/service/cart-service-api'
+import useUserStore from '@/stores/user-store'
+import { RouteNames } from '@/types/Route-names'
 interface IState {
   isShowModal: boolean
   products: IProduct[]
@@ -85,6 +86,7 @@ const userStore = useUserStore()
 const user = computed(() => userStore.user)
 const cartId = computed(() => user.value?.cartId)
 const isEmpty = computed(() => state.products.length === 0)
+const cartService = computed(() => useCartService(cartId.value || 0))
 
 const totalPrice = computed(() => {
   return state.products
@@ -92,10 +94,10 @@ const totalPrice = computed(() => {
     .toFixed(2)
 })
 
-async function removeCard(id: number) {
+async function removeCard(product: IProduct) {
   try {
-    const cart = await removeFromCart(id)
-    console.log(cart)
+    const cart = await cartService.value.removeFromCart(product)
+
     state.products = cart
   } catch (error) {
     console.error('Ошибка при удалении товара:', error)
@@ -103,7 +105,7 @@ async function removeCard(id: number) {
 }
 
 function redirectToCategory() {
-  router.push({ name: 'CategoryList' })
+  router.push({ name: RouteNames.CategoryList })
 }
 
 function placingAnOrder() {
@@ -119,18 +121,16 @@ function closeModal() {
   console.log('closeModal', state.isShowModal)
 }
 async function getCartData() {
-
-    try {
-      if (cartId.value) {
-        const cartData = await getCart(cartId.value)
-        state.products = cartData.products
-      } else {
-        console.error('Корзина не найдена')
-      }
-    } catch (error) {
-      console.error('Ошибка при загрузке корзины:', error)
+  try {
+    if (cartId.value) {
+      const cartData = await cartService.value.getCart()
+      state.products = cartData.products
+    } else {
+      console.error('Корзина не найдена')
     }
-
+  } catch (error) {
+    console.error('Ошибка при загрузке корзины:', error)
+  }
 }
 
 onMounted(async () => {
@@ -144,7 +144,7 @@ watch(
   },
   {
     immediate: true,
-  }
+  },
 )
 </script>
 

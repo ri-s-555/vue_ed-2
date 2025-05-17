@@ -47,9 +47,9 @@
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue'
 import mainButton from '@/components/ui/main-button.vue'
-import { reactive } from 'vue'
-import { addToCart } from '@/service/product-api'
-
+import useCartService from '@/service/cart-service-api'
+import useUserStore from '@/stores/user-store'
+import { reactive, computed } from 'vue'
 
 
 
@@ -67,14 +67,17 @@ const props = defineProps<{
 const state = reactive<IState>({
   isShowModal:false
 })
+const userStore = useUserStore()
+const user = computed(() => userStore.user)
 
 function clickCard(){
   emit('clickCard',props.product) //эмитит событие клик с данными о продукте
 }
 
 async function handleAddToCart() {
+  const cartService = useCartService(user.value?.cartId)
   try {
-    await addToCart(props.product)
+    await cartService.addToCart(props.product)
     state.isShowModal = true
   } catch (error) {
     console.error('Ошибка при добавлении в корзину:', error)
