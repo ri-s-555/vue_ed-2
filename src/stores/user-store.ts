@@ -1,17 +1,21 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { IUser } from '@/types/user'
+import useUserService from '@/service/user-service-api'
 
-
-
-export const useUserStore = defineStore('user', () => {
+export default defineStore('user', () => {
   const user = ref<IUser | null>(null)
-  const cart = ref([])
-  function setUser(value: IUser) {
+
+
+  async function setUser(value: IUser) {
+    console.log('setUser')
     user.value = value
   }
+  async function getUser(userId:number) {
+    const { getUser: getUserFromService} = useUserService()
+    await setUser(await getUserFromService(userId))
+    return user.value
+  }
 
-  return { user,cart, setUser }
+  return { user, setUser, getUser }
 })
-
-
