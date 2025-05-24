@@ -3,7 +3,10 @@
     <div class="cart-page-new__header">
       <h1 class="cart-page-new__title">Корзина</h1>
     </div>
-    <div v-if="isEmpty" class="cart-page-new__empty">
+    <div v-if="state.isLoading" class="cart-page-new__loading">
+      Загрузка...
+    </div>
+    <div v-else-if="isEmpty" class="cart-page-new__empty">
       <div class="cart-page-new__empty__img">
         <img
           src="/img/cat cart.png"
@@ -19,66 +22,45 @@
         </p>
       </div>
     </div>
-    <div v-else class="cart-page-new__items">
-      <!-- <mainButton @click="clearCart" title="Очистить корзину"/> -->
-
-      <div v-for="item in state.products" :key="item.id" class="cart-page-new__items__list">
-        <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
-        <div class="cart-page-new__items__list__detalies">
-          <div class="cart-page-new__items__list__detalies__name">{{ item.name }}</div>
-          <div class="cart-page-new__items__list__detalies__price">${{ item.price }}</div>
-          <mainButton @click="removeCard(item)" title="X" :type="ButtonType.ICON" />
+    <div v-else class="cart-page-new__wrapper">
+      <div class="cart-page-new__items">
+        <div v-for="item in state.products" :key="item.id" class="cart-page-new__items__list">
+          <img :src="item.image" :alt="item.name" class="cart-page-new__items__list__img" />
+          <div class="cart-page-new__items__list__detalies">
+            <div class="cart-page-new__items__list__detalies__name">{{ item.name }}</div>
+            <div class="cart-page-new__items__list__detalies__price">${{ item.price }}</div>
+            <mainButton @click="removeCard(item)" title="X" :type="ButtonType.ICON" />
+          </div>
         </div>
       </div>
       <div class="cart-page-new__total">
         <div class="cart-page-new__total__summary">
           Total: <span id="totalPrice">{{ totalPrice }}</span>
         </div>
-      </div>
-      <div class="cart-page-new__button">
-        <mainButton @click="redirectToCategory" title="Продолжить покупки" />
-        <mainButton @click="placingAnOrder" title="Оформить заказ" />
+        <mainButton v-if="isAuth" class="cart-page-new__total__button" @click="createOrder" title="Оформить заказ" />
+        <mainButton v-else class="cart-page-new__total__button" @click="redirectToLogin" title="Войти" />
       </div>
     </div>
   </div>
 
-  <modalTemplate v-if="state.isShowModal" @close="closeModal" title="Оформление заказа">
-    <div class="order-form">
-      <div class="order-items">
-        <div v-for="item in state.products" :key="item.id" class="order-item">
-          <!-- <img :src="item.image" :alt="item.name" class="order-item__image" /> -->
-          <span class="order-item__name">{{ item.name }}</span>
-          <!-- <span class="order-item__price">${{ item.price }}</span> -->
-        </div>
-      </div>
-      <!-- <div class="order-total">Итого: ${{ totalPrice }}</div> -->
-    </div>
-    <!-- <template #footer>
-      <div class="modal-actions">
-        <mainButton @click="confirmOrder" title="Подтвердить" />
-        <mainButton @click="closeModal" title="Отмена" :type="ButtonType.OUTLINE" />
-      </div>
-    </template> -->
-  </modalTemplate>
 </template>
 
 <script lang="ts" setup>
 import { reactive, computed, watch, onMounted } from 'vue' // +computed
 import { type IProduct } from '@/types/Product'
-import modalTemplate from '@/components/ui/modal-template.vue'
 import { ButtonType } from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
-import { useRouter } from 'vue-router'
 import useCartService from '@/service/cart-service-api'
 import useUserStore from '@/stores/user-store'
+import { useRouter } from 'vue-router'
 import { RouteNames } from '@/types/Route-names'
 interface IState {
-  isShowModal: boolean
+  isLoading: boolean
   products: IProduct[]
 }
 
 const state = reactive<IState>({
-  isShowModal: false,
+  isLoading: false,
   products: [],
 })
 const router = useRouter()
@@ -87,6 +69,7 @@ const user = computed(() => userStore.user)
 const cartId = computed(() => user.value?.cartId)
 const isEmpty = computed(() => state.products.length === 0)
 const cartService = computed(() => useCartService(cartId.value || 0))
+const isAuth = computed(() => userStore.isAuth)
 
 const totalPrice = computed(() => {
   return state.products
@@ -95,32 +78,26 @@ const totalPrice = computed(() => {
 })
 
 async function removeCard(product: IProduct) {
+  state.isLoading = true
   try {
     const cart = await cartService.value.removeFromCart(product)
 
     state.products = cart
   } catch (error) {
     console.error('Ошибка при удалении товара:', error)
+  } finally {
+    state.isLoading = false
   }
 }
 
-function redirectToCategory() {
-  router.push({ name: RouteNames.CategoryList })
+function createOrder() {}
+
+function redirectToLogin() {
+  router.push({ name: RouteNames.Login })
 }
 
-function placingAnOrder() {
-  try {
-    state.isShowModal = true
-  } catch (error) {
-    console.error('ошибка. случилось это:', error)
-  }
-}
-
-function closeModal() {
-  state.isShowModal = false
-  console.log('closeModal', state.isShowModal)
-}
 async function getCartData() {
+  state.isLoading = true
   try {
     if (cartId.value) {
       const cartData = await cartService.value.getCart()
@@ -130,6 +107,9 @@ async function getCartData() {
     }
   } catch (error) {
     console.error('Ошибка при загрузке корзины:', error)
+  } finally {
+    state.isLoading = false
+
   }
 }
 
@@ -176,20 +156,23 @@ watch(
       font-size: 24px;
     }
   }
-
+  &__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
   &__items {
-    margin-top: 20px;
-    width: 1100px;
+    width: 800px;
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
+    gap: 20px;
 
     &__list {
-      width: 1100px;
+      width: 100%;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 20px;
@@ -218,20 +201,29 @@ watch(
     }
   }
   &__total {
-    display: grid;
-    place-items: center;
-    width: 1100px;
-    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    width: 500px;
+    height: auto;
+    min-height: 50px;
     border-radius: 20px;
     box-shadow: 0 0 50px rgba(149, 136, 136, 0.38);
-    margin-bottom: 30px;
 
     font-size: 24px;
     color: $text-dark;
-    text-align: right; // yt ghbvtyztnccz
+    &__button {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
   &__button {
-    width: 1100px;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
     gap: 30px;
