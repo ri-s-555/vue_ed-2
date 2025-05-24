@@ -30,11 +30,10 @@
           </svg>
         </button>
       </div>
-      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND"  @click="redirectToCart"/>
+      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND" @click="redirectToCart" />
 
-      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND"  @click="redirectToLogin"/>
+      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND" @click="redirectToLogin" />
       <!-- @click="openModal" -->
-
     </div>
   </div>
   <nav class="container menu">
@@ -67,7 +66,6 @@ import { reactive } from 'vue'
 import mainButton from '@/components/ui/main-button.vue'
 import { ButtonType } from '@/components/ui/ui-types'
 import { RoutePaths } from '@/types/Route-names'
-// import ModalComponent from '@/components/ui/modal-template.vue'
 import { useRouter } from 'vue-router'
 
 interface IState {
@@ -84,25 +82,6 @@ const redirectToLogin = () => {
 const redirectToCart = () => {
   router.push({ name: 'Cart' })
 }
-
-// const isModalOpen = ref(false);
-// const username = ref('');
-// const password = ref('');
-
-// function openModal() {
-//   isModalOpen.value = true;
-// }
-
-// function closeModal() {
-//   isModalOpen.value = false;
-// }
-
-// function handleSubmit() {
-//   // Обработка отправки формы
-//   console.log('Username:', username.value);
-//   console.log('Password:', password.value);
-//   closeModal();
-// }
 </script>
 
 <style lang="scss">
