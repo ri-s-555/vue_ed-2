@@ -30,9 +30,9 @@
           </svg>
         </button>
       </div>
-      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND"  @click="redirectToCart"/>
+      <mainButton title="0 Items Added" :type="ButtonType.INLINE_ROUND" @click="redirectToCart" />
 
-      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND"  @click="redirectToLogin"/>
+      <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND" @click="redirectToLogin" />
       <!-- @click="openModal" -->
 
     </div>
@@ -45,29 +45,13 @@
       <li class="about"><router-link :to="RoutePaths.About">About</router-link></li>
     </ul>
   </nav>
-
-  <!-- <ModalComponent :isOpen="isModalOpen" @close="closeModal" title="Login Form">
-    <form @submit.prevent="handleSubmit">
-      <div>
-        <div class="form-group">
-          <input type="text" id="username" v-model="username" placeholder="Username" required />
-        </div>
-        <div class="form-group">
-          <input type="password" id="password" v-model="password" placeholder="Password" required />
-        </div>
-      </div>
-      <mainButton title="Login" />
-    </form>
-  </ModalComponent> -->
 </template>
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-// import { ref } from 'vue'
 import mainButton from '@/components/ui/main-button.vue'
 import { ButtonType } from '@/components/ui/ui-types'
 import { RoutePaths } from '@/types/Route-names'
-// import ModalComponent from '@/components/ui/modal-template.vue'
 import { useRouter } from 'vue-router'
 
 interface IState {
@@ -84,25 +68,6 @@ const redirectToLogin = () => {
 const redirectToCart = () => {
   router.push({ name: 'Cart' })
 }
-
-// const isModalOpen = ref(false);
-// const username = ref('');
-// const password = ref('');
-
-// function openModal() {
-//   isModalOpen.value = true;
-// }
-
-// function closeModal() {
-//   isModalOpen.value = false;
-// }
-
-// function handleSubmit() {
-//   // Обработка отправки формы
-//   console.log('Username:', username.value);
-//   console.log('Password:', password.value);
-//   closeModal();
-// }
 </script>
 
 <style lang="scss">

@@ -47,39 +47,49 @@
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue'
 import mainButton from '@/components/ui/main-button.vue'
-import { reactive } from 'vue'
-import { addToCart } from '@/service/product-api'
-
-
-
+import { reactive, onMounted } from 'vue'
+import useCartService from '@/service/cart-service-api'
+// import {useUserStore} from "@/stores/user-store"
 
 interface IState {
-  isShowModal:boolean
+  isShowModal: boolean
 }
+
 interface IEmits {
-    (e:'clickCard',product:IProduct):void
+    (e: 'clickCard', product: IProduct): void
 }
+
 const emit = defineEmits<IEmits>()
 
 const props = defineProps<{
   product: IProduct
 }>()
+
 const state = reactive<IState>({
-  isShowModal:false
+  isShowModal: false
 })
 
-function clickCard(){
-  emit('clickCard',props.product) //эмитит событие клик с данными о продукте
+// const { user } = useUserStore()
+// const { addToCart } = useCartService(user?.cartId)
+let addToCart: (productId: number) => Promise<void>;
+
+function clickCard() {
+  emit('clickCard', props.product)
 }
 
 async function handleAddToCart() {
   try {
-    await addToCart(props.product)
+    await addToCart(props.product.id)
     state.isShowModal = true
   } catch (error) {
     console.error('Ошибка при добавлении в корзину:', error)
   }
 }
+
+onMounted(async () => {
+  const { addToCart: addToCartService } = await useCartService();
+  addToCart = addToCartService;
+});
 
 
 function closeModal(){
@@ -190,4 +200,3 @@ function closeModal(){
        border-color: rgba(0, 0, 0, 0);
     }
 </style>
-

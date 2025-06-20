@@ -24,6 +24,6 @@ export enum RoutePaths {
   About = '/about',
   Blog = '/blog',
   Features = '/features',
-  Profile = '/proffile',
+  Profile = '/profile',
   Product = '/product',
 }

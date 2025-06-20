@@ -7,16 +7,13 @@
 </template>
 
 <script setup lang="ts">
-// import sellersProduct from '@/components/sellers-product.vue'
-// import trendingEarphones from '@/components/trending-earphones.vue'
 import categoryWrapper from '@/components/category-wrapper.vue'
 import { CategoryTitles, CategoryProducts  } from '@/types/category'
 import { type IProduct } from '@/types/Product'
 import { CategoryProductsTitles } from '@/types/category'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'
-// import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
-import { getProducts } from '@/service/product-api'
+import { useProductService } from '@/service/product-service-api'
 
 
 const route = useRoute()
@@ -50,19 +47,19 @@ function getMenuItems() {
   }
 }
 
-// onMounted(async() => {
-//   if (state.currentCategory) {
-//     const products = await getProducts()
-//     state.products = products.filter((product) => product.category?.includes(state.currentCategory))  }
-//     getMenuItems()
-//   console.log(route.params.category)
-// })
-
 onMounted(async () => {
   if (state.currentCategory) {
     try {
-      const products = await getProducts();
-      state.products = products.filter((product) => product.category?.includes(state.currentCategory));
+      // const products = await useProductService();
+      // state.products = products.filter((product) =>
+      // product.category?.includes(state.currentCategory));
+
+      const productService = useProductService()
+      const products = await productService.getProducts()
+      state.products = products.filter((product: IProduct) =>
+      product.category?.includes(state.currentCategory))
+
+
       getMenuItems();
       console.log(route.params.category);
     } catch (error) {
@@ -71,6 +68,11 @@ onMounted(async () => {
   }
 });
 </script>
+
+
+
+
+
 
 <style lang="scss" scoped>
 .category-page__wrapper {

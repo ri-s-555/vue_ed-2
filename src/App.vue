@@ -3,18 +3,32 @@ import mainHeader from './components/main-header.vue'
 import mainFooter from './components/main-footer.vue'
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
-import { getUser } from './service/user-api'
 import { useUserStore } from './stores/user-store'
+import { useUserService } from './service/user-service-api'
+
 const route = useRoute()
-const { setUser } = useUserStore()
+const userStore = useUserStore();
+const { setUser } = userStore;
+const { getUser: getUserFromService } = useUserService()
 
 const isWithOutHeader = route.meta.withOutHeader
+
 onMounted(async () => {
-  console.log('getUser')
-  const user = await getUser(1)
-  console.log('setUser')
-  setUser(user)
+  try {
+    const user = await getUserFromService(1)
+    setUser(user)
+  } catch (error) {
+    console.error('Failed to fetch user:', error)
+  }
 })
+
+
+
+// onMounted(async () => {
+//   // setUser (await getUser(1))
+//   const user = await getUserFromService(1)
+//   setUser(user)
+// })
 </script>
 
 <template>
