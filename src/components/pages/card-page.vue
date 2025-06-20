@@ -52,50 +52,68 @@
 
 
 <script lang="ts" setup>
-import { ref, onMounted, computed } from 'vue'
-import { useRoute } from 'vue-router'
-import { MOCK_PRODUCTS } from '@/mock/data/mock-products'
-import { type IProduct } from '@/types/Product'
-import mainButton from '@/components/ui/main-button.vue'
+import { ref, onMounted, computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { MOCK_PRODUCTS } from '@/mock/data/mock-products';
+import { type IProduct } from '@/types/Product';
+import mainButton from '@/components/ui/main-button.vue';
 // import Modal from '@/components/ui/modal-template.vue';
-import { RoutePaths } from '@/types/Route-names'
-// import { addToCart } from '@/service/product-api'
+import { RoutePaths } from '@/types/Route-names';
+// import { addToCart } from '@/service/product-api';
 
-const route = useRoute()
-const product = ref<IProduct | null>(null)
+/**
+ * Получение текущего маршрута
+ */
+const route = useRoute();
+
+/**
+ * Реактивная ссылка на текущий продукт
+ */
+const product = ref<IProduct | null>(null);
 
 onMounted(() => {
-  const id = parseInt(route.params.id as string)
-  console.log(id)
+  /**
+   * Получение id продукта из параметров маршрута
+   */
+  const id = parseInt(route.params.id as string);
+  console.log(id);
 
+  /**
+   * Проверка корректности id
+   */
   if (isNaN(id)) {
-    console.log('Некорректный ID')
-    return
+    console.log('Некорректный ID');
+    return;
   }
 
-  product.value = MOCK_PRODUCTS.find((p) => p.id === id) || null
+  /**
+   * Поиск продукта по id
+   */
+  product.value = MOCK_PRODUCTS.find((p) => p.id === id) || null;
 
+  /**
+   * Проверка существования продукта
+   */
   if (!product.value) {
-    console.log('Продукт не найден')
+    console.log('Продукт не найден');
   }
-})
+});
 
-///
-const routePath = computed(() => route.path)
-// const routePath = computed(() => { return route.path;});
+/**
+ * Вычисление текущего пути маршрута
+ */
+const routePath = computed(() => route.path);
 
+/**
+ * Добавление продукта в корзину
+ */
 function addToCart() {
   if (product.value) {
-    console.log('Товар добавлен в корзину:', product.value.name)
+    console.log('Товар добавлен в корзину:', product.value.name);
   }
 }
-// const showModal = ref(false);
-
-// const router = useRouter()
-// const redirectToCategory = () => {
-//   router.push({ name: 'Category' });
-// };
 </script>
+
 
 <style lang="scss">
 @use '@/scss/colors' as *;

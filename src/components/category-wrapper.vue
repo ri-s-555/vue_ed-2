@@ -1,8 +1,7 @@
 <template>
-  <div class="container sellers">
-    <div class="sellers-header">{{ props.title }}</div>
-    <TabMenu :initialTab="indexCurrentCategory" :tabs="props.menuItems" menuClass="__menu" @tab-switched="switchTab" />
-    <div class="sellers-product-wrapper">
+  <div class="container category">
+    <div class="category-header">{{ props.title }}</div>
+    <div class="category-product-wrapper">
       <ProductCart
         v-for="product in currentProducts"
         :key="product.id"
@@ -10,14 +9,8 @@
         @clickCard="clickCard" /> </div></div>
 </template>
 
-
-
-
-
-
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue'
-import TabMenu from '@/components/tab-menu.vue'
 import ProductCart from '@/components/product-cart.vue'
 import { type IProduct } from '@/types/Product'
 import { CategoryProducts, CategoryTitles } from '@/types/category'
@@ -46,9 +39,6 @@ const productsArrays = [
   MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.TOP_PICKS)),
   MOCK_PRODUCTS.filter((product) => product.category?.includes(CategoryProducts.WATCHES)),
 ]
-function switchTab(index: number) {
-  currentProducts.value = productsArrays[index]
-}
 
 function getIndexCurrentCategory() {
   console.log(CategoryProductsTitles[props.currentCategory])
@@ -70,7 +60,7 @@ watch(() => props.currentCategory, () => {
 <style lang="scss">
 @use '@/scss/colors' as *;
 
-.sellers {
+.category {
   background: #fff;
   display: flex;
   flex-direction: column;

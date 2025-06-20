@@ -1,26 +1,23 @@
 <template>
   <div>
-    <category-wrapper
-      :currentCategory="state.currentCategory"
-      :title="getTitleForCategory(state.currentCategory)"
-      :menuItems="state.menuItems"
-      @clickCard="clickCard"
-    />
+    <category-wrapper :currentCategory="state.currentCategory"
+    :title="getTitleForCategory(state.currentCategory)"
+    :menuItems="state.menuItems" @clickCard="clickCard" />
   </div>
 </template>
 
 <script setup lang="ts">
 import categoryWrapper from '@/components/category-wrapper.vue'
-import { CategoryTitles, CategoryProducts } from '@/types/category'
+import { CategoryTitles, CategoryProducts  } from '@/types/category'
 import { type IProduct } from '@/types/Product'
 import { CategoryProductsTitles } from '@/types/category'
 import { useRouter, useRoute } from 'vue-router'
 import { onMounted, reactive } from 'vue'
-import useProductService from '@/service/product-service-api'
+import { useProductService } from '@/service/product-service-api'
+
 
 const route = useRoute()
 const router = useRouter()
-const { getProducts } = useProductService()
 
 interface IState {
   currentCategory: CategoryProducts
@@ -44,29 +41,38 @@ function getTitleForCategory(category: CategoryProducts): string {
 
 function getMenuItems() {
   if ([CategoryProducts.TOP_PICKS, CategoryProducts.WATCHES].includes(state.currentCategory)) {
-    state.menuItems = [CategoryTitles.TOP_PICKS, CategoryTitles.WATCHES]
+    state.menuItems =[CategoryTitles.TOP_PICKS, CategoryTitles.WATCHES]
   } else {
     state.menuItems = [CategoryTitles.EARBUDS, CategoryTitles.WIRELESS, CategoryTitles.WIRED]
   }
 }
 
-
-
 onMounted(async () => {
   if (state.currentCategory) {
     try {
-      const products = await getProducts()
-      state.products = products.filter((product) =>
-        product.category?.includes(state.currentCategory),
-      )
-      getMenuItems()
-      console.log(route.params.category)
+      // const products = await useProductService();
+      // state.products = products.filter((product) =>
+      // product.category?.includes(state.currentCategory));
+
+      const productService = useProductService()
+      const products = await productService.getProducts()
+      state.products = products.filter((product: IProduct) =>
+      product.category?.includes(state.currentCategory))
+
+
+      getMenuItems();
+      console.log(route.params.category);
     } catch (error) {
-      console.error('Ошибка при загрузке продуктов:', error)
+      console.error('Ошибка при загрузке продуктов:', error);
     }
   }
-})
+});
 </script>
+
+
+
+
+
 
 <style lang="scss" scoped>
 .category-page__wrapper {

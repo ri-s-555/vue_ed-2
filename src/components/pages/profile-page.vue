@@ -1,6 +1,6 @@
 <template>
   <div class="container header">
-    <div class="header-logo"><span> Shop</span>peryyyyyyyy</div></div>
+    <div class="header-logo"><span> Страница</span>личного кабинета пользователя</div></div>
 
 </template>
 

@@ -18,8 +18,10 @@
     {{ props.title }}
   </button>
 </template>
+
 <script setup lang="ts">
 import { ButtonType } from '@/components/ui/ui-types'
+import { onUpdated } from 'vue'
 interface IEmit {
   (event: 'click'): void
 }
@@ -38,6 +40,9 @@ const props = withDefaults(defineProps<IProps>(), {
 function click() {
   emit('click')
 }
+onUpdated(() => {
+  console.log('updated button')
+})
 </script>
 <style lang="scss">
 @use '@/scss/colors' as *;

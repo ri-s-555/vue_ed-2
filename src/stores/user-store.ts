@@ -1,21 +1,30 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { IUser } from '@/types/user'
-import useUserService from '@/service/user-service-api'
+import {useUserService} from '@/service/user-service-api'
 
-export default defineStore('user', () => {
-  const user = ref<IUser | null>(null)
+export const useUserStore = defineStore('user', () => {
+
+// export default defineStore('user', () => { //новое хранилизе в панье с именем юзер
+  const user = ref<IUser | null>(null) //хранит данные пользователя, исначально нал
+  const isAuth = ref<boolean>(false) //аунтетификация, значально фолс
 
 
-  async function setUser(value: IUser) {
-    console.log('setUser')
-    user.value = value
-  }
-  async function getUser(userId:number) {
-    const { getUser: getUserFromService} = useUserService()
-    await setUser(await getUserFromService(userId))
-    return user.value
+  async function setUser(value: IUser) { // принимает объект пользователя типа IUser
+    // console.log('setUser')
+    user.value = value //и устанавливает его в реактивную ссылку user
   }
 
-  return { user, setUser, getUser }
+
+  async function getUser(userId:number) { //получает данные пользователя по его userId
+    const { getUser: getUserFromService} = useUserService() //использует useUserService для получения метода getUserFromService, который выполняет запрос к API для получения данных пользователя
+    const response = await getUserFromService(userId)
+
+    if (response) {
+      isAuth.value = true
+      user.value = response
+    }
+  }
+
+  return { user, setUser, getUser, isAuth }
 })
