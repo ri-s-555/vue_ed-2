@@ -1,6 +1,10 @@
 <template>
   <div class="card">
-    <div @click="clickCard" :class="['card__pick']" :style="{ backgroundColor: props.product.color }">
+    <div
+      @click="clickCard"
+      :class="['card__pick']"
+      :style="{ backgroundColor: props.product.color }"
+    >
       <div class="card__pick__img">
         <img :src="props.product.image" :alt="product.name" class="card__pick__img__product" />
         <div v-if="product.save" :class="['card__pick__img__save', props.product.colorSave]">
@@ -34,11 +38,11 @@
       </div>
     </div>
 
-    <mainButton @click="handleAddToCart" title="Buy Now"/>
+    <mainButton @click="handleAddToCart" title="Buy Now" />
 
     <modalTemplate v-if="state.isShowModal" @close="closeModal">
-        Add to cart
-    <template v-if="false" #footer>123</template>
+      Add to cart
+      <template v-if="false" #footer>123</template>
     </modalTemplate>
   </div>
 </template>
@@ -47,7 +51,7 @@
 import { type IProduct } from '@/types/Product'
 import modalTemplate from '@/components/ui/modal-template.vue'
 import mainButton from '@/components/ui/main-button.vue'
-import { reactive, onMounted } from 'vue'
+// import { reactive, onMounted, computed } from 'vue'
 import useCartService from '@/service/cart-service-api'
 // import {useUserStore} from "@/stores/user-store"
 
@@ -70,26 +74,26 @@ const state = reactive<IState>({
 })
 
 // const { user } = useUserStore()
-// const { addToCart } = useCartService(user?.cartId)
-let addToCart: (productId: number) => Promise<void>;
 
 function clickCard() {
   emit('clickCard', props.product)
 }
 
+// const cart = await service.removeFromCart(product.id)
+
 async function handleAddToCart() {
   try {
-    await addToCart(props.product.id)
+    const cartService = await useCartService()
+    const updatedCart = await cartService.addToCart(props.product.id)
     state.isShowModal = true
   } catch (error) {
     console.error('Ошибка при добавлении в корзину:', error)
   }
 }
 
-onMounted(async () => {
-  const { addToCart: addToCartService } = await useCartService();
-  addToCart = addToCartService;
-});
+// onMounted(async () => {
+//   const { addToCart } = await useCartService();
+// });
 
 
 function closeModal(){
@@ -99,104 +103,102 @@ function closeModal(){
 
 <style lang="scss">
 @use '@/scss/colors' as *;
-    .card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
+  &__pick {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 361px;
+    height: 438px;
+    border-radius: 25px;
 
-      &__pick {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 361px;
-        height: 438px;
-        border-radius: 25px;
+    &__img {
+      position: relative;
 
+      &__product {
+        width: 196px;
+        height: 196px;
+        margin-top: 30px;
+      }
 
-        &__img {
-          position: relative;
+      &__save {
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 21.94px;
+        text-align: center;
+        color: rgba(255, 255, 255, 1);
 
-          &__product {
-            width: 196px;
-            height: 196px;
-            margin-top: 30px;
-          }
-
-          &__save {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 21.94px;
-            text-align: center;
-            color: rgba(255, 255, 255, 1);
-
-            width: 100px;
-            height: 100px;
-            padding-top: 25px;
-            border-radius: 50px;
-            position: absolute;
-            top: 20px;
-            left: 160px;
-          }
-        }
-
-        &__descr {
-          display: flex;
-          flex-direction: column;
-          width: 319px;
-          height: 164px;
-          border-radius: 25px;
-          background: rgba(255, 255, 255, 1);
-          padding: 31px 76px 30px 52px;
-
-          &__name {
-            font-size: 21px;
-            font-weight: 500;
-            line-height: 35px;
-            text-align: left;
-            color: rgba(43, 38, 38, 1);
-          }
-
-          &__reviews {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 5px;
-
-            &__svg {
-              display: flex;
-            }
-
-            &__text {
-              font-size: 11px;
-              font-weight: 500;
-              line-height: 35px;
-              text-align: left;
-              color: rgb(46, 20, 164);
-            }
-          }
-
-          &__price {
-            font-size: 21px;
-            font-weight: 600;
-            line-height: 25.6px;
-            text-align: left;
-            color: rgba(43, 38, 38, 1);
-          }
-        }
+        width: 100px;
+        height: 100px;
+        padding-top: 25px;
+        border-radius: 50px;
+        position: absolute;
+        top: 20px;
+        left: 160px;
       }
     }
-    .button_add {
-       width: 361px;
-       height: 70px;
-       border-radius: 10px;
-       background: $primary-color;
-       font-size: 21px;
-       font-weight: 600;
-       line-height: 25.6px;
-       text-align: center;
-       color: rgba(255, 255, 255, 1);
-       margin-top: 29px;
-       border-color: rgba(0, 0, 0, 0);
+
+    &__descr {
+      display: flex;
+      flex-direction: column;
+      width: 319px;
+      height: 164px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 1);
+      padding: 31px 76px 30px 52px;
+
+      &__name {
+        font-size: 21px;
+        font-weight: 500;
+        line-height: 35px;
+        text-align: left;
+        color: rgba(43, 38, 38, 1);
+      }
+
+      &__reviews {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-top: 5px;
+
+        &__svg {
+          display: flex;
+        }
+
+        &__text {
+          font-size: 11px;
+          font-weight: 500;
+          line-height: 35px;
+          text-align: left;
+          color: rgb(46, 20, 164);
+        }
+      }
+
+      &__price {
+        font-size: 21px;
+        font-weight: 600;
+        line-height: 25.6px;
+        text-align: left;
+        color: rgba(43, 38, 38, 1);
+      }
     }
+  }
+}
+.button_add {
+  width: 361px;
+  height: 70px;
+  border-radius: 10px;
+  background: $primary-color;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 25.6px;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  margin-top: 29px;
+  border-color: rgba(0, 0, 0, 0);
+}
 </style>

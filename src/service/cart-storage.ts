@@ -34,7 +34,7 @@ function useLocalCartStorage() {
       return storedCart;
     }
 
-    const newCart: ICart = { id: 0, products: [] };
+    const newCart: ICart = { id: new Date().getTime(), products: [] };
     saveCartToLocalStorage(newCart);
     return newCart;
   }

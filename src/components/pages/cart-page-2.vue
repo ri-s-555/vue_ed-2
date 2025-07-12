@@ -26,47 +26,31 @@
     </div>
 
     <div v-else class="cart__wrapper">
-      <div class="cart__items">
-        <div v-for="item in state.products" :key="item.id" class="cart-item">
-          <img :src="item.image" :alt="item.name" class="cart-item__img" />
-          <div class="cart-item__info">
-            <div class="cart-item__name">{{ item.name || 'Без названия' }}</div>
-            <div class="cart-item__price">${{ item.price }}</div>
-            <div v-if="item.discount" class="cart-item__discount">- ${{ item.discount }}</div>
+      <div class="cart__wrapper__items">
+        <div v-for="item in state.products" :key="item.id" class="cart__wrapper__items__list">
+          <img :src="item.image" :alt="item.name" class="cart__wrapper__items__list__img" />
+          <div class="cart__wrapper__items__list__details">
+            <div class="cart__wrapper__items__list__details__name">{{ item.name || 'Без названия'  }}</div>
+            <div class="cart__wrapper__items__list__details__price">${{ item.price }}</div>
+            <mainButton @click="removeCard(item)" title="X" :type="ButtonType.ICON" />
           </div>
-          <button @click="removeCard(item)" class="cart-item__remove">×</button>
         </div>
       </div>
-
-      <div class="cart-summary">
-        <div class="cart-summary__row">
-          <span>В корзине:</span>
-          <span>{{ state.products.length }} товаров</span>
-        </div>
-        <div class="cart-summary__row">
-          <span>Товары:</span>
-          <span>${{ totalPrice }}</span>
-        </div>
-        <div class="cart-summary__row">
-          <span>Скидка:</span>
-          <span class="cart-summary__discount">- ${{ totalDiscount }}</span>
-        </div>
-        <div class="cart-summary__row cart-summary__row--total">
-          <span>Итого со скидкой:</span>
-          <span>${{ totalPriceWithDiscount }}</span>
+      <div class="cart__total">
+        <div class="cart__total__summary">
+          Total: <span id="totalPrice">{{ totalPrice }}</span>
         </div>
       </div>
-
-      <div class="cart-checkout">
+      <div class="cart__button">
         <mainButton
           v-if="isAuth"
-          class="cart-checkout__button"
+          class="cart__total__button"
           @click="createOrder"
-          title="ОФОРМИТЬ"
+          title="Оформить заказ"
         />
         <mainButton
           v-else
-          class="cart-checkout__button"
+          class="cart__total__button"
           @click="redirectToLogin"
           title="Войти"
         />
@@ -76,15 +60,15 @@
 </template>
 
 <script lang="ts" setup>
-// import { reactive, computed, watch, onMounted } from 'vue'
+import { reactive, computed, watch, onMounted } from 'vue'
 import { type IProduct } from '@/types/Product'
-// import { ButtonType } from '@/components/ui/ui-types'
+import { ButtonType } from '@/components/ui/ui-types'
 import mainButton from '@/components/ui/main-button.vue'
 import useCartService from '@/service/cart-service-api'
 import { useUserStore } from '@/stores/user-store'
 import { useRouter } from 'vue-router'
 import { RouteNames } from '@/types/Route-names'
-// import { useLocalCartStorage } from '@/service/cart-storage'
+import { useLocalCartStorage } from '@/service/cart-storage'
 
 /**
  * Интерфейс для состояния компонента
@@ -193,7 +177,7 @@ async function getCartData() {
       console.log("cartData.products, отпарсили:", JSON.parse(JSON.stringify(cartData.products)));
     } else {
       // console.error('Корзина не найдена')
-      // useLocalCartStorage().ensureCartInStorage()
+      useLocalCartStorage().ensureCartInStorage()
 
     }
   } catch (error) {

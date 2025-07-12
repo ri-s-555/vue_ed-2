@@ -1,6 +1,8 @@
 <template>
   <div class="container header">
-    <div class="header-logo"><span> Shop</span>per</div>
+    <div class="header-logo">
+      <router-link :to="RoutePaths.Main"> <span>Shop</span>per </router-link>
+    </div>
     <div class="header-buttons">
       <div class="search">
         <input
@@ -34,7 +36,6 @@
 
       <mainButton title="Login or Sign Up" :type="ButtonType.FULL_ROUND" @click="redirectToLogin" />
       <!-- @click="openModal" -->
-
     </div>
   </div>
   <nav class="container menu">
@@ -53,6 +54,7 @@ import mainButton from '@/components/ui/main-button.vue'
 import { ButtonType } from '@/components/ui/ui-types'
 import { RoutePaths } from '@/types/Route-names'
 import { useRouter } from 'vue-router'
+
 
 interface IState {
   inputValue: string

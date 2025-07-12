@@ -21,7 +21,7 @@ const useCartService = async () => {
    * @returns {Promise<ICart>} Данные корзины
    */
   async function getCart(): Promise<ICart> {
-    if (!isAuth.value) {
+    if (!isAuth) {
       return useLocalCartStorage().getCartFromLocalStorage()
     }
 
@@ -50,14 +50,20 @@ const useCartService = async () => {
    */
   async function addToCart(productId: number): Promise<ICart> {
     const { getCartFromLocalStorage, saveCartToLocalStorage } = useLocalCartStorage()
-    const localCart = getCartFromLocalStorage()
-    const updatedCart = {
-      ...localCart,
-      products: [...localCart.products, { id: productId }],
-    }
-    saveCartToLocalStorage(updatedCart)
+    console.log(useLocalCartStorage)
 
-    if (isAuth.value && cartId.value) {
+
+    const localCart = getCartFromLocalStorage()
+    console.log(localCart)
+
+
+
+    const updatedCart: ICart = {
+      id: localCart.id, products: [...localCart.products, productId]
+    }
+    // saveCartToLocalStorage(updatedCart)
+
+    if (!isAuth && cartId.value) {
       try {
         const response = await fetch(`${API_URL}/cart/${cartId.value}`, {
           method: 'POST',
@@ -87,11 +93,11 @@ const useCartService = async () => {
     const localCart = getCartFromLocalStorage()
     const updatedCart = {
       ...localCart,
-      products: localCart.products.filter((p: { id: number }) => p.id !== productId),
+      products: localCart.products.filter((p) => p!== productId),
     }
     saveCartToLocalStorage(updatedCart)
 
-    if (isAuth.value && cartId.value) {
+    if (!isAuth && cartId.value) {
       try {
         const response = await fetch(`${API_URL}/cart/${cartId.value}`, {
           method: 'DELETE',

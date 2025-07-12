@@ -13,11 +13,15 @@ const useUserService = () => {
 
   /**
    * Получение пользователя по идентификатору
-   * @param {number} id - Идентификатор пользователя
+   * @param {number} id - id пользователя
    * @returns {Promise<IUser>} - Данные пользователя в формате JSON
    */
   async function getUser(id: number) {
     const response = await fetch(`${API_URL}/user/${id}`)
+    // if (!response.ok) {
+    //   throw new Error(`HTTP error! status: ${response.status}`)
+    // }
+    console.log("htcgjyc", response)
     const data: IUser = await response.json()
     user.value = data
 

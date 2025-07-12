@@ -1,9 +1,8 @@
-import { IProduct } from '@/types/Product'
+
 
 interface ICart {
-  id: number | null;
-  // products: IProduct[]
-  products: Array<IProduct | { id: number }>;
+  id: number;
+  products: number[];
 }
 
 export type { ICart }

@@ -1,7 +1,7 @@
 <template>
   <div class="about-page">
     <div class="about-page__header">
-      <h1 class="about-page__title">О нашем проекте</h1>
+      <h1 class="about-page__title">О проекте</h1>
     </div>
 
     <div class="about-page__content">
@@ -10,13 +10,12 @@
       </div>
 
       <div class="about-page__info">
-        <p class="about-page__text">Сайт разработан в рамках учебного проекта студентами</p>
+        <p class="about-page__text">Сайт разработан в рамках учебного проекта студенткой</p>
         <p class="about-page__text">Факультета математики и естественнонаучного образования</p>
         <p class="about-page__text">Группа 02042308</p>
 
         <div class="about-page__students">
           <p class="about-page__student">Соболева Марина Сергеевна</p>
-          <p class="about-page__student">Щёголев Александр Валерьевич</p>
         </div>
       </div>
     </div>
