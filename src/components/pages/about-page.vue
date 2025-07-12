@@ -16,7 +16,6 @@
 
         <div class="about-page__students">
           <p class="about-page__student">Соболева Марина Сергеевна</p>
-          <p class="about-page__student">Щёголев Александр Валерьевич</p>
         </div>
       </div>
     </div>
