@@ -2,6 +2,6 @@ export interface IUser {
   id: number;
   name: string;
   email: string;
-  cartId: number;
+  cartId?: number;
   balance: number;
 }
